@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace UDUNT_TimeTable.Domain
 {
-    internal class Domain
+    internal class Models
     {
         public class Schedule
         {
