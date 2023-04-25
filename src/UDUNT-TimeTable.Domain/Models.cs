@@ -11,7 +11,7 @@ namespace UDUNT_TimeTable.Domain
 {
     internal class Models
     {
-        public class Schedule
+        public class Schedule //модель розкладу
         {
             public string Name { get; }
             public DateTime CreatedDT { get; }
@@ -21,27 +21,27 @@ namespace UDUNT_TimeTable.Domain
             public int Semester { get; }
         }
 
-        public class Class
+        public class Class //модель порядку дисципліни у розкладі
         {
             public int Number;
             public Subject Subject;
             public Group[] Groups;
         }
 
-        public class Subject
+        public class Subject //модель дисципліни
         {
             public string Name;
             public string Description;
         }
 
-        public interface IScheduleRepository
+        public interface IScheduleRepository //інтрефейс списку розкладів
         {
             Task<Schedule[]> Get();
             Task<Schedule> Get(string name);
             Task Update(Schedule schedule);
         }
 
-        public class SearchCriteria
+        public class SearchCriteria // для пошуку 
         {
             public string TeacherId { get; }
             public string GroupId { get; }
@@ -52,29 +52,28 @@ namespace UDUNT_TimeTable.Domain
             Task<Class[]> Search(SearchCriteria searchCriteria);
         }
 
-        public class InMemoryScheduleRepository : IScheduleRepository
+        public class InMemoryScheduleRepository : IScheduleRepository //модель використання моків
         {
             public Task<Schedule[]> Get()
             {
                 var result = new Schedule[]
                 {
-            new Schedule { Name = "Розклад 1", ...},
-            new Schedule { Name = "Розклад 2", ...}
+                    new Schedule { Name = "Розклад 1", ...},
+                    new Schedule { Name = "Розклад 2", ...}
                 };
                 return Task.FromResult(result);
             }
         }
 
-        public class DbScheduleRepository : IScheduleRepository
+        public class DbScheduleRepository : IScheduleRepository //модель використання даних з БД
         {
             public Task<Schedule[]> Get()
             {
-                //dbContext
-        
+                //dbContext;
             }
         }
 
-        public class ScheduleService
+        public class ScheduleService //модель обробки даних
         {
             private IScheduleRepository scheduleRepository;
             private SiteParser siteParser;
@@ -83,7 +82,7 @@ namespace UDUNT_TimeTable.Domain
             {
                 var schedules = await scheduleRepository.Get();
 
-                if (!schedules.Any())
+                if (!schedules.Any()) //оновлення даних
                 {
                     siteParser.GetScheduleList();
                 }
@@ -92,7 +91,7 @@ namespace UDUNT_TimeTable.Domain
             }
         }
 
-        public class SiteParser
+        public class SiteParser //модель парсингу
         {
             public Task<Schedule[]> GetScheduleList()
             {
