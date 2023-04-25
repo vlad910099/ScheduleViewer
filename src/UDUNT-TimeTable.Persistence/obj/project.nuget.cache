@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HSuBm/vcWztVGEm1zjxrCdkt5VMjrux4r36r7tikBUGxt0ePLEaOM6C64aN8saklxipBpyv+vAi8epKNNegt5g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\UDUNT-TimeTable.Persistence\\UDUNT-TimeTable.Persistence.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vladz\\.nuget\\packages\\microsoft.android.ref.31\\32.0.485\\microsoft.android.ref.31.32.0.485.nupkg.sha512"
+  ],
+  "logs": []
+}
