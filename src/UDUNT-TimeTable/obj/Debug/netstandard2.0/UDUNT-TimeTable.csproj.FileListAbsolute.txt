@@ -10,3 +10,6 @@ C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDU
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable\obj\Debug\netstandard2.0\refint\UDUNT-TimeTable.dll
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable\obj\Debug\netstandard2.0\UDUNT-TimeTable.pdb
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable\obj\Debug\netstandard2.0\ref\UDUNT-TimeTable.dll
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable\obj\Debug\netstandard2.0\XamlC.stamp
