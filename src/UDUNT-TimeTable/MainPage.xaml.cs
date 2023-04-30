@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UDUNT_TimeTable;
 using Xamarin.Forms;
 
 namespace UDUNT_TimeTable
@@ -19,11 +20,7 @@ namespace UDUNT_TimeTable
         {
             bSchedule.Clicked += BSchedule_Clicked;
 
-            logo.Source = ImageSource.FromResource("UDUNT-TimeTable.Images.logo_udunt.png");
-
-            //Image image = new Image();
-            //image.Source = ImageSource.FromResource("UDUNT-TimeTable\\Images\\logo_udunt.png");
-            //Content = image;
+            Ilogo.Source = ImageSource.FromResource("UDUNT-TimeTable.Images.logo_udunt.png");
 
             //StackLayout layout = new StackLayout();
 
@@ -37,10 +34,9 @@ namespace UDUNT_TimeTable
 
             //Content = layout;
         }
-
-        private void BSchedule_Clicked(object sender, EventArgs e)
+        private async void BSchedule_Clicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new Shcedule());
         }
     }
 }

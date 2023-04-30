@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UDUNT_TimeTable.Shcedule"
+             Title="Розклад занять на 2 семестр">
+    <StackLayout Padding="10,10,10,10">
+
+        <Entry Placeholder="Введіть групу"/>
+
+        
+        <StackLayout Orientation="Horizontal">
+        <CheckBox x:Name="checkMonday" CheckedChanged="OnCheckMonday" />
+            <Label Text="Понеділок" FontSize="26" FontAttributes="Bold" />
+        </StackLayout>
+
+        <BoxView x:Name="boxViewMonday" Color="Gray"  HeightRequest="150" HorizontalOptions="Fill" IsVisible="false" />
+
+        <StackLayout Orientation="Horizontal">
+            <CheckBox x:Name="checkTuesday" CheckedChanged="OnCheckTuesday"/>
+            <Label Text="Вівторок" FontSize="26" FontAttributes="Bold" />
+        </StackLayout>
+
+        <BoxView x:Name="boxViewTuesday" Color="Gray"  HeightRequest="150" HorizontalOptions="Fill" IsVisible="false" />
+
+        <StackLayout Orientation="Horizontal">
+            <CheckBox x:Name="checkWednesday" />
+            <Label Text="Середа" FontSize="26" FontAttributes="Bold" />
+        </StackLayout>
+    
+        <StackLayout Orientation="Horizontal">
+            <CheckBox x:Name="checkThursday" />
+            <Label Text="Четвер" FontSize="26" FontAttributes="Bold" />
+        </StackLayout>
+    
+        <StackLayout Orientation="Horizontal">
+            <CheckBox x:Name="checkFriday" />
+            <Label Text="П'ятниця" FontSize="26" FontAttributes="Bold" />
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>
