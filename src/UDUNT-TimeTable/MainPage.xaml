@@ -3,22 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UDUNT_TimeTable.MainPage">
 
-    <StackLayout>
+    <StackLayout Padding="10,10,10,10">
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+            <Label Text="   УДУНТ      Розклад занять" HorizontalTextAlignment="Center" TextColor="White" FontSize="32"/>
 
+        </Frame>
+        <!--<Label Text="УДУНТ" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+        <Label Text="Розклад занять" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"></Label>-->
+
+        <Button x:Name="bSchedule" Text="Розклад занять на 2 семестр"></Button>
+        <Button x:Name="bScheduleMK1" Text="Розклад МК1"></Button>
+        <Button x:Name="bScheduleMK2" Text="Розклад МК2"></Button>
+        <Image x:Name="logo" />
+
+    </StackLayout>
 </ContentPage>
