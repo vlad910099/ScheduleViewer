@@ -1,0 +1,7 @@
+
+src/.vs/UDUNT-TimeTable/FileContentIndex/read.lock
+*.force
+*.props
+*.vs/
+*.bin/
+*.obj/
