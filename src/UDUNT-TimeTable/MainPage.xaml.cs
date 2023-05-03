@@ -18,8 +18,6 @@ namespace UDUNT_TimeTable
 
         protected override void OnAppearing()
         {
-            bSchedule.Clicked += BSchedule_Clicked;
-
             Ilogo.Source = ImageSource.FromResource("UDUNT-TimeTable.Images.logo_udunt.png");
 
             //StackLayout layout = new StackLayout();
@@ -37,6 +35,10 @@ namespace UDUNT_TimeTable
         private async void BSchedule_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Shcedule());
+        }
+        private async void BScheduleMK1_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ShcMK1());
         }
     }
 }

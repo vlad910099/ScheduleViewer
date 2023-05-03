@@ -15,25 +15,24 @@ namespace UDUNT_TimeTable
 		public Shcedule ()
 		{
 			InitializeComponent();
-		}
+        }
 
         protected override void OnAppearing()
 		{
-            checkMonday.CheckedChanged += OnCheckMonday;
-            checkTuesday.CheckedChanged += OnCheckTuesday;
+
         }
 
         private void OnCheckMonday(object sender, CheckedChangedEventArgs e)
         {
             if(checkMonday.IsChecked == true)
-                boxViewMonday.IsVisible = true;
-            else boxViewMonday.IsVisible = false;
+                frameViewMonday.IsVisible = true;
+            else frameViewMonday.IsVisible = false;
         }
         private void OnCheckTuesday(object sender, CheckedChangedEventArgs e)
         {
             if (checkTuesday.IsChecked == true)
-                boxViewTuesday.IsVisible = true;
-            else boxViewTuesday.IsVisible = false;
+                frameViewTuesday.IsVisible = true;
+            else frameViewTuesday.IsVisible = false;
         }
     }
 }

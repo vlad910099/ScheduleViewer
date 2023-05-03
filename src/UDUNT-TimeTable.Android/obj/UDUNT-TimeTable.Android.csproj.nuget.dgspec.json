@@ -42,14 +42,6 @@
       "frameworks": {
         "monoandroid12.0": {
           "dependencies": {
-            "Xamarin.Android.Support.v7.AppCompat": {
-              "target": "Package",
-              "version": "[28.0.0.3, )"
-            },
-            "Xamarin.Android.Support.v7.RecyclerView": {
-              "target": "Package",
-              "version": "[28.0.0.3, )"
-            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.7.0, )"
