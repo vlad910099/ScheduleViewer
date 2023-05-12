@@ -7,8 +7,30 @@
     <StackLayout Padding="10,10,10,10">
         <ScrollView>
             <StackLayout>
-                <Entry Placeholder="Введіть групу"/>
-
+                <!--<Entry x:Name="entryGroup" Placeholder="Введіть групу" Completed="eFindGroup"/>-->
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <RadioButton x:Name="RadioGroup" Content ="Студент" IsChecked="True" CheckedChanged="Radio_CheckedChanged"/>
+                        <RadioButton x:Name="RadioTeacher" Content ="Викладач" IsChecked="False" CheckedChanged="Radio_CheckedChanged"/>
+                    </StackLayout>
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Label x:Name="labelNumerator" Text="Чисельник"/>
+                        <Switch x:Name="swithWeekType" IsToggled="False" Toggled="swithWeekType_Toggled"/>
+                        <Label x:Name="labelDenominator" Text="Знаменник"/>
+                    </StackLayout>-->
+                    
+                    <StackLayout >
+                        <Picker x:Name="pickerGroup" SelectedIndexChanged="picker_SelectedIndexChangedG" Title="Оберіть групу" >
+                            <Picker.Items>
+                            </Picker.Items>
+                        </Picker>
+                        <Picker x:Name="pickerTeacher" SelectedIndexChanged="picker_SelectedIndexChangedT" Title="Оберіть викладача" IsVisible="False" >
+                            <Picker.Items>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                </StackLayout>
+                
                 <StackLayout Orientation="Horizontal">
                     <CheckBox x:Name="checkMonday" CheckedChanged="OnCheckMonday" />
                     <Label Text="Понеділок" FontSize="26" FontAttributes="Bold" />
@@ -19,9 +41,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="I" FontSize="22" FontAttributes="Bold" WidthRequest="25" />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL11">
+
                             </StackLayout>
                         </StackLayout>
                 
@@ -29,9 +50,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="II" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL12">
+
                             </StackLayout>
                         </StackLayout>
                 
@@ -39,9 +59,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="III" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="Групова динаміка" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="Гришечкіна Т.С." FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL13">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -49,9 +68,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="IV" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="Групова динаміка" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL14">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -59,9 +77,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="V" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL15">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -69,9 +86,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="VI" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL16">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -88,9 +104,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="I" FontSize="22" FontAttributes="Bold" WidthRequest="25" />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="Менеджемент" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="Горячкін В.М." FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL21">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -98,9 +113,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="II" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="Групова динаміка" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="Гришечкіна Т.С." FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL22">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -108,9 +122,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="III" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="Групова динаміка" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL23">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -118,9 +131,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="IV" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL24">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -128,9 +140,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="V" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL25">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -138,9 +149,8 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="VI" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
                             <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
-                            <StackLayout>
-                                <Label Text="" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="" FontSize="18" FontAttributes="Italic" />
+                            <StackLayout x:Name="SL26">
+
                             </StackLayout>
                         </StackLayout>
 
@@ -148,19 +158,192 @@
                 </Frame>
 
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="checkWednesday" />
+                    <CheckBox x:Name="checkWednesday" CheckedChanged="OnCheckWednesday"/>
                     <Label Text="Середа" FontSize="26" FontAttributes="Bold" />
                 </StackLayout>
+
+                <Frame x:Name="frameViewWednesday" IsVisible="false" BackgroundColor="Gray">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="I" FontSize="22" FontAttributes="Bold" WidthRequest="25" />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL31">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="II" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL32">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="III" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL33">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="IV" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL34">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="V" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL35">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="VI" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL36">
+
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
     
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="checkThursday" />
+                    <CheckBox x:Name="checkThursday" CheckedChanged="OnCheckThursday" />
                     <Label Text="Четвер" FontSize="26" FontAttributes="Bold" />
                 </StackLayout>
-    
+
+                <Frame x:Name="frameViewThursday" IsVisible="false" BackgroundColor="Gray">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="I" FontSize="22" FontAttributes="Bold" WidthRequest="25" />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL41">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="II" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL42">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="III" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL43">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="IV" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL44">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="V" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL45">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="VI" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL46">
+
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="checkFriday" />
+                    <CheckBox x:Name="checkFriday" CheckedChanged="OnCheckFriday"/>
                     <Label Text="П'ятниця" FontSize="26" FontAttributes="Bold" />
                 </StackLayout>
+
+                <Frame x:Name="frameViewFriday" IsVisible="false" BackgroundColor="Gray">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="I" FontSize="22" FontAttributes="Bold" WidthRequest="25" />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL51">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="II" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL52">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="III" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL53">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="IV" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL54">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="V" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL55">
+
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Color="#FCFCFC"  HeightRequest="2" HorizontalOptions="Fill" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="VI" FontSize="22" FontAttributes="Bold" WidthRequest="25"  />
+                            <BoxView Color="#FCFCFC"  WidthRequest="2" HorizontalOptions="Fill" />
+                            <StackLayout x:Name="SL56">
+                                <!--<Label x:Name="l56S" Text="" FontSize="18" FontAttributes="Bold" />
+                                <Label x:Name="l56T" Text="" FontSize="18" FontAttributes="Italic" />-->
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+                    
             </StackLayout>
         </ScrollView>
     </StackLayout>

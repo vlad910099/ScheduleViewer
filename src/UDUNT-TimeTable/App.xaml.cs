@@ -10,6 +10,8 @@ namespace UDUNT_TimeTable
         {
             InitializeComponent();
 
+            Startup.Init();
+
             MainPage = new NavigationPage(new MainPage());
         }
 

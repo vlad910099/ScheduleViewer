@@ -1,0 +1,12 @@
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.csproj.AssemblyReference.cache
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.AssemblyInfoInputs.cache
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.AssemblyInfo.cs
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.csproj.CoreCompileInputs.cache
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\bin\Debug\netstandard2.0\App1.deps.json
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\bin\Debug\netstandard2.0\App1.dll
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\bin\Debug\netstandard2.0\App1.pdb
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.dll
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\refint\App1.dll
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\App1.pdb
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\App1\App1\obj\Debug\netstandard2.0\ref\App1.dll
