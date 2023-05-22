@@ -6,8 +6,8 @@ namespace Domain.Models
 {
     public class Group
     {
-        public string Name { get; }
-        public string AlternativeName { get; }
+        public string Name { get; set; }
+        public string AlternativeName { get; set; }
 
         public Group(string name, string alternativeName)
         {

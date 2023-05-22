@@ -8,18 +8,18 @@ namespace Domain.Models
 {
     public class Class
     {
-        public string ScheduleName { get; }
-        public uint WeekDay { get; }
-        public uint Number { get; }
-        public WeekType WeekType { get; }
-        public string Subject { get; }
-        public Group Group { get; }
-        public Teacher Teacher { get; }
-        public string Room { get; }
+        public string ScheduleName { get; set; }
+        public int WeekDay { get; set; }
+        public int Number { get; set; }
+        public WeekType WeekType { get; set; }
+        public string Subject { get; set; }
+        public Group Group { get; set; }
+        public Teacher Teacher { get; set; }
+        public string Room { get; set; }
 
         public Class(string scheduleName,
-                     uint weekDay,
-                     uint number,
+                     int weekDay,
+                     int number,
                      WeekType weekType,
                      string subject,
                      Group group,
@@ -44,6 +44,16 @@ namespace Domain.Models
             Group = group ?? throw new ArgumentNullException(nameof(group));
             Teacher = teacher;
             Room = room;
+        }
+
+        public Class()
+        {
+
+        }
+
+        public override string ToString()
+        {
+            return $"{Subject} {Group.Name}";
         }
     }
 }
