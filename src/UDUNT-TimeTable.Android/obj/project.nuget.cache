@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "EOpiUFU7eR0C7qMyAANnuRUOrYBU5rqJgZ6LNowhPkb3FxQk76ReRAMYc2/aqgG8nTXR6jCK0ew/2lcoLsQZGg==",
+  "dgSpecHash": "6plYuel+oMEDRpvt3ONXgNl/96Y8PZl4ir1eMFrZRxmhLWzp1/rUiX3vv0bXHcKTUkmvY53LxZnobyI4JmQVFw==",
   "success": true,
   "projectFilePath": "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\UDUNT-TimeTable.Android\\UDUNT-TimeTable.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vladz\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
-    "C:\\Users\\vladz\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\xamarin.androidx.activity\\1.2.4.1\\xamarin.androidx.activity.1.2.4.1.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\xamarin.androidx.annotation\\1.2.0.1\\xamarin.androidx.annotation.1.2.0.1.nupkg.sha512",

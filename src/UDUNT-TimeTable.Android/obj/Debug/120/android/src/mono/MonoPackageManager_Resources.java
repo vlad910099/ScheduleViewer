@@ -4,11 +4,10 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "UDUNT-TimeTable.Android.dll" comes first in this list. */
 		"UDUNT-TimeTable.Android.dll",
 		"Domain.dll",
-		"Parsistence.dll",
+		"Persistence.dll",
 		"FormsViewGroup.dll",
 		"Microsoft.Extensions.DependencyInjection.Abstractions.dll",
 		"Microsoft.Extensions.DependencyInjection.dll",
-		"Newtonsoft.Json.dll",
 		"UDUNT-TimeTable.dll",
 		"Xamarin.AndroidX.Activity.dll",
 		"Xamarin.AndroidX.Annotation.dll",

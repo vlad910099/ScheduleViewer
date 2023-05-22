@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "/SrIJvCB7Qd2dc9psmc7Ez0xYgdlS/zFmYD+PI4hJ4IXjTpIUVsKF1VhVhNiVAmiX6GO4zI/JIowfZquQvp5lw==",
+  "dgSpecHash": "LStzCM/q9Vj8uRBAxSOEsKUdW4wm+a7wv1tk2KVBS9VOc4TOecXWNUs2CtQ24PUaglZHHpCOy0aTs2IvfntY2g==",
   "success": true,
   "projectFilePath": "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\UDUNT-TimeTable.iOS\\UDUNT-TimeTable.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vladz\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
-    "C:\\Users\\vladz\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
     "C:\\Users\\vladz\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
