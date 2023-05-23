@@ -12,7 +12,7 @@
         <!--<Label Text="УДУНТ" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"></Label>
         <Label Text="Розклад занять" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"></Label>-->
 
-        <ListView x:Name="listView" ItemSelected="Schedule_ItemSelected" HorizontalOptions="Center"></ListView>
+        <ListView x:Name="listView" ItemSelected="onScheduleSelected" HorizontalOptions="Center"></ListView>
         <!--<Button x:Name="bSchedule" Text="Розклад занять на 2 семестр" Clicked="BSchedule_Clicked"></Button>
         <Button x:Name="bScheduleMK1" Text="Розклад МК1" Clicked="BScheduleMK1_Clicked"></Button>
         <Button x:Name="bScheduleMK2" Text="Розклад МК2"></Button>-->

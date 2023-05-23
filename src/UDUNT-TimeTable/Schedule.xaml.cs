@@ -16,22 +16,34 @@ using Xamarin.Forms.Xaml;
 namespace UDUNT_TimeTable
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Shcedule : ContentPage
+	public partial class Schedule : ContentPage
 	{
         public readonly string ScheduleName;
         private readonly ScheduleService scheduleService;
         private const int maxWeekday = 5;
         private const int maxNumber = 6;
-        public Shcedule (string scheduleName)
+        private StackLayout[,] sls;
+        public Schedule(string scheduleName)
 		{
 			InitializeComponent();
             ScheduleName = scheduleName;
             scheduleService = Startup.ServiceProvider.GetService<ScheduleService>();
+            
+            sls = new StackLayout[,]
+            {
+                {monday_1Class_StackLayout, monday_2Class_StackLayout, monday_3Class_StackLayout, monday_4Class_StackLayout, monday_5Class_StackLayout, monday_6Class_StackLayout},
+                {tuesday_1Class_StackLayout, tuesday_2Class_StackLayout, tuesday_3Class_StackLayout, tuesday_4Class_StackLayout, tuesday_5Class_StackLayout, tuesday_6Class_StackLayout},
+                {wednesday_1Class_StackLayout, wednesday_2Class_StackLayout, wednesday_3Class_StackLayout, wednesday_4Class_StackLayout, wednesday_5Class_StackLayout, wednesday_6Class_StackLayout},
+                {thursday_1Class_StackLayout, thursday_2Class_StackLayout, thursday_3Class_StackLayout, thursday_4Class_StackLayout, thursday_5Class_StackLayout, thursday_6Class_StackLayout},
+                {friday_1Class_StackLayout, friday_2Class_StackLayout, friday_3Class_StackLayout, friday_4Class_StackLayout, friday_5Class_StackLayout, friday_6Class_StackLayout}
+            };
+
         }
 
         protected override async void OnAppearing()
 		{
             await InitializePickers();
+            
         }
 
         private async Task InitializePickers()
@@ -39,29 +51,20 @@ namespace UDUNT_TimeTable
             var groups = await scheduleService.GetGroups();
             foreach (var groupName in groups)
             {
-                pickerGroup.Items.Add(groupName);
+                groupPicker.Items.Add(groupName);
             }
 
             var teachers = await scheduleService.GetTeachers();
             foreach (var teacherName in teachers)
             {
-                pickerTeacher.Items.Add(teacherName);
+                teacherPicker.Items.Add(teacherName);
             }
         }
 
 
         private async Task ViewScheduleGroup(string group)
         {
-
-            StackLayout[,] SLs = new StackLayout[,]
-            {
-                {SL11, SL12, SL13, SL14, SL15, SL16},
-                {SL21, SL22, SL23, SL24, SL25, SL26},
-                {SL31, SL32, SL33, SL34, SL35, SL36},
-                {SL41, SL42, SL43, SL44, SL45, SL46},
-                {SL51, SL52, SL53, SL54, SL55, SL56}
-            };
-            CleanSL(SLs);
+            CleanSL(sls);
 
             var searchCriteria = new SearchCriteria(ScheduleName, null, group);
             var groupClasses = await scheduleService.GetClasses(searchCriteria);
@@ -76,7 +79,7 @@ namespace UDUNT_TimeTable
                         while (numberCounter <= maxNumber)
                         {
                             if (groupClass.Number == numberCounter)
-                                ViewSubjectsGroup(SLs, groupClass, weekDayCounter, numberCounter);
+                                ViewSubjectsGroup(sls, groupClass, weekDayCounter, numberCounter);
                             numberCounter++;
                         }
                     }
@@ -84,10 +87,11 @@ namespace UDUNT_TimeTable
                 }
             }
         }
-        public void ViewSubjectsGroup(StackLayout[,] SLs, Class groupClass, int weekDayCounter, int numberCounter)
+        public void ViewSubjectsGroup(StackLayout[,] sls, Class groupClass, int weekDayCounter, int numberCounter)
         {
             Label labelSeparator = new Label();
-            labelSeparator.Text = "----------------------------------------------------------------";
+            labelSeparator.Text = "----------------------------------------------";
+            labelSeparator.FontAttributes = FontAttributes.Bold;
             StackLayout sl;
             BoxView box = new BoxView
             {
@@ -99,37 +103,37 @@ namespace UDUNT_TimeTable
                 if (groupClass.WeekType == WeekType.Numerator)
                 {
                     sl = new StackLayout();
-                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                    ViewSubjectGroup(sl, groupClass, weekDayCounter, numberCounter);
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                    ViewSubjectGroup(sl, groupClass);
                 }
                 else
                 {
                     sl = new StackLayout();
-                    if (SLs[weekDayCounter - 1, numberCounter - 1].Children.Count==0)
+                    if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count==0)
                     {
-                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
-                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
                     }
                     else
-                        SLs[weekDayCounter - 1, numberCounter - 1].Children.RemoveAt(2);
-                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                    ViewSubjectGroup(sl, groupClass, weekDayCounter, numberCounter);
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.RemoveAt(2);
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                    ViewSubjectGroup(sl, groupClass);
                 }
-                if (SLs[weekDayCounter - 1, numberCounter - 1].Children.Count == 1)
+                if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 1)
                 {
-                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
                 }
             }
             else
             {
                 sl = new StackLayout();
-                SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                ViewSubjectGroup(sl, groupClass, weekDayCounter, numberCounter);
+                sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                ViewSubjectGroup(sl, groupClass);
             }
         }
 
-        public void ViewSubjectGroup(StackLayout sl, Class groupClass, int weekDayCounter, int numberCounter)
+        public void ViewSubjectGroup(StackLayout sl, Class groupClass)
         {
             Label labelSubject = new Label();
             labelSubject.Text = groupClass.Subject;
@@ -148,19 +152,7 @@ namespace UDUNT_TimeTable
         }
         private async Task ViewScheduleTeacher(string teacher)
         {
-            StackLayout[,] SLs = new StackLayout[,]
-            {
-                {SL11, SL12, SL13, SL14, SL15, SL16},
-                {SL21, SL22, SL23, SL24, SL25, SL26},
-                {SL31, SL32, SL33, SL34, SL35, SL36},
-                {SL41, SL42, SL43, SL44, SL45, SL46},
-                {SL51, SL52, SL53, SL54, SL55, SL56}
-            };
-            CleanSL(SLs);
-
-            Label labelSubject, labelGroup, labelRoom = null;
-            Label labelSeparator = new Label();
-            labelSeparator.Text = "----------------------------------------------------------------";
+            CleanSL(sls);
 
             var searchCriteriaTeacher = new SearchCriteria(ScheduleName, teacher, null);
             var teacherClasses = await scheduleService.GetClasses(searchCriteriaTeacher);
@@ -176,63 +168,96 @@ namespace UDUNT_TimeTable
                         {
                             if (teacherClass.Number == numberCounter)
                             {
-                                if (teacherClass.WeekType != WeekType.None)
-                                {
-                                    if (teacherClass.WeekType == WeekType.Denominator)
-                                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-
-                                    labelSubject = new Label();
-                                    labelSubject.Text = teacherClass.Subject;
-                                    labelGroup = new Label();
-                                    labelGroup.Text = teacherClass.Group.Name;
-                                    labelRoom = new Label();
-                                    labelRoom.Text = "ауд." + teacherClass.Room;
-
-                                    labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
-                                    labelGroup.FontSize = 18; labelGroup.FontAttributes = FontAttributes.Italic;
-                                    labelRoom.FontSize = 16; 
-
-                                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSubject);
-                                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelRoom);
-                                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelGroup);
-                                }
-
-                                else
-                                {
-                                    labelSubject = new Label();
-                                    labelSubject.Text = teacherClass.Subject;
-                                    labelGroup = new Label();
-                                    labelGroup.Text = teacherClass.Group.Name;
-                                    labelRoom = new Label();
-                                    labelRoom.Text = "ауд." + teacherClass.Room;
-
-                                    labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
-                                    labelGroup.FontSize = 18; labelGroup.FontAttributes = FontAttributes.Italic;
-                                    labelRoom.FontSize = 16; 
-
-                                    if (SLs[weekDayCounter - 1, numberCounter - 1].Children.Count == 0)
-                                    {
-                                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSubject);
-                                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelRoom);
-                                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelGroup);
-                                    }
-                                    else
-                                    {
-                                        SLs[weekDayCounter - 1, numberCounter - 1].Children.Add(labelGroup);
-                                    }
-                                }
+                                ViewSubjectsTeacher(sls, teacherClass, weekDayCounter, numberCounter);
                             }
-                            
                             numberCounter++;
                         }
                     }
                     weekDayCounter++;
                 }
             }
-           
+        }
+        
+        public void ViewSubjectsTeacher(StackLayout[,] sls, Class teacherClass, int weekDayCounter, int numberCounter)
+        {
+
+            Label labelSeparator = new Label();
+            labelSeparator.Text = "----------------------------------------------";
+            labelSeparator.FontAttributes = FontAttributes.Bold;
+            StackLayout sl;
+            BoxView box = new BoxView
+            {
+                WidthRequest = 150,
+                HeightRequest = 90
+            };
+
+            bool isOneGroup = true;
+
+
+            if (teacherClass.WeekType != WeekType.None)
+            {
+                if (teacherClass.WeekType == WeekType.Numerator)
+                {
+                    sl = new StackLayout();
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                    ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+                }
+                else
+                {
+                    sl = new StackLayout();
+                    if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 0)
+                    {
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                    }
+                    else
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.RemoveAt(2);
+
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                    ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+                }
+                if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 1)
+                {
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
+                }
+            }
+            else
+            {
+                if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count > 0)
+                    isOneGroup = false;
+
+                sl = new StackLayout();
+                sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+            }
+            
         }
 
-        public void CleanSL(StackLayout[,] SLs )
+        public void ViewSubjectTeacher(StackLayout sl, Class teacherClass, bool isOneGroup)
+        {
+            Label labelSubject = new Label();
+            labelSubject.Text = teacherClass.Subject;
+            Label labelGroup = new Label();
+            labelGroup.Text = teacherClass.Group.Name;
+            Label labelRoom = new Label();
+            labelRoom.Text = "ауд." + teacherClass.Room;
+
+            labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
+            labelGroup.FontSize = 18; labelGroup.FontAttributes = FontAttributes.Italic;
+            labelRoom.FontSize = 16;
+
+            if (isOneGroup)
+            {
+                sl.Children.Add(labelSubject);
+                sl.Children.Add(labelRoom);
+                sl.Children.Add(labelGroup);
+            }
+            else
+                sl.Children.Add(labelGroup);
+        }
+
+        public void CleanSL(StackLayout[,] sls )
         {
             int weekDayCounter = 1;
             while (weekDayCounter <= maxWeekday)
@@ -240,19 +265,19 @@ namespace UDUNT_TimeTable
                 int numberCounter = 1;
                 while (numberCounter <= maxNumber)
                 {
-                    SLs[weekDayCounter - 1, numberCounter - 1].Children.Clear();
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Clear();
                     numberCounter++;
                 }
                 weekDayCounter++;
             }  
         }
-        public async void SelectedviewScheduleGroup()
+        public async void ShowScheduleForGroup()
         {
             var  groups = await scheduleService.GetGroups();
-            if (pickerGroup.SelectedItem != null)
+            if (groupPicker.SelectedItem != null)
                 foreach (var groupName in  groups)
                 {
-                    if (pickerGroup.Items[pickerGroup.SelectedIndex] == groupName)
+                    if (groupPicker.Items[groupPicker.SelectedIndex] == groupName)
                     {
                         await ViewScheduleGroup(groupName);
                         break;
@@ -260,13 +285,13 @@ namespace UDUNT_TimeTable
                 }
         
         }
-        public async void SelectedviewScheduleTeacher()
+        public async void ShowScheduleForTeacher()
         {
             var teachers = await scheduleService.GetTeachers();
-            if (pickerTeacher.SelectedItem != null)
+            if (teacherPicker.SelectedItem != null)
                 foreach (var teacherName in teachers)
                 {
-                    if (pickerTeacher.Items[pickerTeacher.SelectedIndex] == teacherName)
+                    if (teacherPicker.Items[teacherPicker.SelectedIndex] == teacherName)
                     {
                         await ViewScheduleTeacher(teacherName);
                         break;
@@ -274,68 +299,55 @@ namespace UDUNT_TimeTable
                 }
         }
 
-        public void picker_SelectedIndexChangedG(object sender, EventArgs e)
+        public void onSelectedGroupChange(object sender, EventArgs e)
         {
-            if (RadioGroup.IsChecked)
+            if (groupRadioButton.IsChecked)
             {
-                SelectedviewScheduleGroup();
+                ShowScheduleForGroup();
             }
         }
 
-        public void picker_SelectedIndexChangedT(object sender, EventArgs e)
+        public void onSelectedTeacherChange(object sender, EventArgs e)
         {
-            if (RadioTeacher.IsChecked)
+            if (teacherRadioButton.IsChecked)
             {
-                SelectedviewScheduleTeacher();
+                ShowScheduleForTeacher();
             }
         }
 
-        private void OnCheckMonday(object sender, CheckedChangedEventArgs e)
+        private void onMondayCheckChange(object sender, CheckedChangedEventArgs e)
         {
-            if(checkMonday.IsChecked)
-                frameViewMonday.IsVisible = true;
-            else frameViewMonday.IsVisible = false;
+            mondayFrame.IsVisible = mondayCheckbox.IsChecked;
         }
-        private void OnCheckTuesday(object sender, CheckedChangedEventArgs e)
+        private void onTuesdayCheckChange(object sender, CheckedChangedEventArgs e)
         {
-            if (checkTuesday.IsChecked)
-                frameViewTuesday.IsVisible = true;
-            else frameViewTuesday.IsVisible = false;
+            tuesdayFrame.IsVisible = tuesdayCheckbox.IsChecked;
         }
-        private void OnCheckWednesday(object sender, CheckedChangedEventArgs e)
+        private void onWednesdayCheckChange(object sender, CheckedChangedEventArgs e)
         {
-            if (checkWednesday.IsChecked)
-                frameViewWednesday.IsVisible = true;
-            else frameViewWednesday.IsVisible = false;
+            wednesdayFrame.IsVisible = wednesdayCheckbox.IsChecked;
         }
-        private void OnCheckThursday(object sender, CheckedChangedEventArgs e)
+        private void onThursdayCheckChange(object sender, CheckedChangedEventArgs e)
         {
-            if (checkThursday.IsChecked)
-                frameViewThursday.IsVisible = true;
-            else frameViewThursday.IsVisible = false;
+            thursdayFrame.IsVisible = thursdayCheckbox.IsChecked;
         }
-        private void OnCheckFriday(object sender, CheckedChangedEventArgs e)
+        private void onFridayCheckChange(object sender, CheckedChangedEventArgs e)
         {
-            if (checkFriday.IsChecked)
-                frameViewFriday.IsVisible = true;
-            else frameViewFriday.IsVisible = false;
+            fridayFrame.IsVisible = fridayCheckbox.IsChecked;
         }
 
-        private void Radio_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        private void onScheduleTypeChange(object sender, CheckedChangedEventArgs e)
         {
-            
-            if (RadioGroup.IsChecked)
-            {
-                pickerGroup.IsVisible = true;
-                pickerTeacher.IsVisible = false;
-                SelectedviewScheduleGroup();
-            }
+            if (teacherPicker.SelectedItem == null || groupPicker.SelectedItem == null)
+                CleanSL(sls);
+
+            groupPicker.IsVisible = groupRadioButton.IsChecked;
+            teacherPicker.IsVisible = !groupRadioButton.IsChecked;
+
+            if (groupRadioButton.IsChecked)
+                ShowScheduleForGroup();
             else
-            {
-                pickerGroup.IsVisible = false;
-                pickerTeacher.IsVisible = true;
-                SelectedviewScheduleTeacher();
-            }
+                ShowScheduleForTeacher();
         }
 
     }

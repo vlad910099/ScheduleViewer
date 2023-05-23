@@ -11,6 +11,6 @@ namespace Domain.Interfaces
         Task<IEnumerable<ScheduleInfo>> GetAvailableSchedules();
         Task<ScheduleInfo?> Get(string name);
         Task Delete(string name);
-        Task Create(Schedule schedule);
+        Task Create(Schedules schedule);
     }
 }

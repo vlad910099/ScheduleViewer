@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class Schedule
+    public class Schedules
     {
         private List<Class> classes;
 
@@ -13,7 +13,7 @@ namespace Domain.Models
         public DateTime CreatedDateTime { get; }
         public IEnumerable<Class> Classes => classes;
 
-        public Schedule(string name, DateTime createdDateTime, IEnumerable<Class>? classes = null)
+        public Schedules(string name, DateTime createdDateTime, IEnumerable<Class>? classes = null)
         {
             if (string.IsNullOrEmpty(name))
             {

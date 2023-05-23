@@ -17,7 +17,7 @@ namespace UDUNT_TimeTable.Persistence.InMemory
             //new ScheduleInfo("Розклад МК1 2022/23 н.р.", DateTime.Now)
         };
 
-        public Task Create(Schedule schedule)
+        public Task Create(Schedules schedule)
         {
             return Task.CompletedTask;
         }

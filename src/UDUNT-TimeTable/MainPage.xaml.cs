@@ -14,38 +14,30 @@ namespace UDUNT_TimeTable
 {
     public partial class MainPage : ContentPage
     {
+        private readonly ScheduleService scheduleService;
         public MainPage()
         {
             InitializeComponent();
+            scheduleService = Startup.ServiceProvider.GetService<ScheduleService>();
         }
 
         protected override async void OnAppearing()
         {
             Ilogo.Source = ImageSource.FromResource("UDUNT-TimeTable.Images.logo_udunt.png");
 
-            var scheduleService = Startup.ServiceProvider.GetService<ScheduleService>();
             var availableScheduleNames = await scheduleService.GetAvailableScheduleNames();
 
             listView.ItemsSource = availableScheduleNames;
         }
-        private async void Schedule_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void onScheduleSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var scheduleService = Startup.ServiceProvider.GetService<ScheduleService>();
+
             var availableScheduleNames = await scheduleService.GetAvailableScheduleNames();
 
-            if (e.SelectedItem != null && availableScheduleNames[0]!= null && e.SelectedItem.ToString() == availableScheduleNames[0])
-                await Navigation.PushAsync(new Shcedule(e.SelectedItem.ToString()));
-            else if(e.SelectedItem != null && availableScheduleNames[1] != null && e.SelectedItem.ToString() == availableScheduleNames[1])
+            if (e.SelectedItem != null && availableScheduleNames[0] != null && e.SelectedItem.ToString() == availableScheduleNames[0])
+                await Navigation.PushAsync(new Schedule(e.SelectedItem.ToString()));
+            else if (e.SelectedItem != null && availableScheduleNames[1] != null && e.SelectedItem.ToString() == availableScheduleNames[1])
                 await Navigation.PushAsync(new ShcMK1());
-        }
-
-        //private async void BSchedule_Clicked(object sender, EventArgs e)
-        //{
-        //    await Navigation.PushAsync(new Shcedule());
-        //}
-        private async void BScheduleMK1_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ShcMK1());
         }
     }
 }

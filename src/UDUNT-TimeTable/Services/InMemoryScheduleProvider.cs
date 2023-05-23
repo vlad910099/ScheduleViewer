@@ -16,10 +16,10 @@ namespace UDUNT_TimeTable.Services
                 new ScheduleInfo("Розклад занять на 1 семестр 2022/23 н.р.", DateTime.Now.AddDays(-30))
             };
 
-        public Task<Schedule> Get(string name)
+        public Task<Schedules> Get(string name)
         {
             var info = schedules.First(s => s.Name == name);
-            var schedule = new Schedule(name, info.CreatedDateTime);
+            var schedule = new Schedules(name, info.CreatedDateTime);
             var classes = new List<Class>();
 
             schedule.AddClasses(classes);

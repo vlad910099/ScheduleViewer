@@ -10,6 +10,6 @@ namespace UDUNT_TimeTable.Services
     {
         Task<string[]> GetAvailableScheduleNames();
         Task<ScheduleInfo> GetInfo(string name);
-        Task<Schedule> Get(string name);
+        Task<Schedules> Get(string name);
     }
 }
