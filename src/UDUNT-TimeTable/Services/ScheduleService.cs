@@ -32,26 +32,33 @@ namespace UDUNT_TimeTable.Services
             this.groupRepository = groupRepository;
         }
 
-        public Task<string[]> GetAvailableScheduleNames()
+        public async Task<ScheduleInfo[]> GetSchedules()
         {
-            return scheduleProvider.GetAvailableScheduleNames();
+            var schedules = await scheduleProvider.GetSchedules();
+
+            if (schedules == null || !schedules.Any())
+                schedules = await scheduleRepository.GetSchedules();
+
+            var sortSchdules = schedules.OrderByDescending(x => x.Year).ThenBy(x => x.Name).ToList();
+            //return sortSchdules;
+            return sortSchdules.ToArray();
         }
 
-        public async Task LoadSchedule(string selectedScheduleName)
+        public async Task LoadSchedule(ScheduleInfo scheduleInfo)
         {
-            var scheduleInfo = await scheduleProvider.GetInfo(selectedScheduleName);
-            var dbScheduleInfo = await scheduleRepository.Get(selectedScheduleName);
+            var extendedScheduleInfo = (await scheduleProvider.GetScheduleInfo(scheduleInfo)) ?? scheduleInfo;
+            var dbScheduleInfo = await scheduleRepository.Get(scheduleInfo.Name);
 
             if (dbScheduleInfo == null)
             {
-                var schedule = await scheduleProvider.Get(selectedScheduleName);
+                var schedule = await scheduleProvider.Get(extendedScheduleInfo);
                 await scheduleRepository.Create(schedule);
             }
             else if (dbScheduleInfo.CreatedDateTime < scheduleInfo.CreatedDateTime)
             {
-                var schedule = await scheduleProvider.Get(selectedScheduleName);
+                var schedule = await scheduleProvider.Get(extendedScheduleInfo);
 
-                await scheduleRepository.Delete(selectedScheduleName);
+                await scheduleRepository.Delete(extendedScheduleInfo.Name);
                 await scheduleRepository.Create(schedule);
             }
         }
@@ -61,15 +68,29 @@ namespace UDUNT_TimeTable.Services
             return classRepository.Get(searchCriteria);
         }
 
-        public async Task<string[]> GetTeachers()
+        public async Task<string[]> GetTeachers(string scheduleName)
         {
-            var result = await teacherRepository.Get();
-            return result.Select(t => t.Name).ToArray();
+            var result = await teacherRepository.Get(scheduleName);
+            var sortResult = result.OrderBy(x => x.Name).ToList();
+            return sortResult.Select(t => t.Name).Distinct().ToArray();
         }
 
-        public async Task<string[]> GetGroups()
+        public async Task<string[]> GetGroups(string scheduleName)
         {
-            var result = await groupRepository.Get();
+            var result = await groupRepository.Get(scheduleName);
+            var sortResult = result.OrderBy(x => x.Name).ToList();
+            return sortResult.Select(t => t.Name).ToArray();
+        }
+
+        public async Task<string[]> GetTeachers(string scheduleName, string name)
+        {
+            var result = await teacherRepository.Get(scheduleName, name);
+            return result.Select(t => t.Name).ToArray();
+        }
+        
+        public async Task<string[]> GetGroups(string scheduleName, string name)
+        {
+            var result = await groupRepository.Get(scheduleName, name);
             return result.Select(t => t.Name).ToArray();
         }
     }

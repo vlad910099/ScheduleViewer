@@ -1,6 +1,5 @@
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\UDUNT-TimeTable.iOS.exe
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\UDUNT-TimeTable.iOS.pdb
-C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Newtonsoft.Json.dll
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Xamarin.Essentials.dll
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Xamarin.Essentials.pdb
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Xamarin.Forms.Core.dll
@@ -66,5 +65,5 @@ C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDU
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\obj\iPhone\Debug\UDUNT-TimeTable.iOS.pdb
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Parsistence.dll
-C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Parsistence.pdb
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Persistence.dll
+C:\Users\vladz\OneDrive\Документы\GitHub\Diplom\UDUNT-TimeTable\src\UDUNT-TimeTable.iOS\bin\iPhone\Debug\Persistence.pdb

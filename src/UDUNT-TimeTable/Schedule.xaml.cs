@@ -1,8 +1,10 @@
 ﻿using Domain;
 using Domain.Enums;
 using Domain.Models;
+using Org.BouncyCastle.Bcpg;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -43,18 +45,17 @@ namespace UDUNT_TimeTable
         protected override async void OnAppearing()
 		{
             await InitializePickers();
-            
         }
 
         private async Task InitializePickers()
         {
-            var groups = await scheduleService.GetGroups();
+            var groups = await scheduleService.GetGroups(ScheduleName);
             foreach (var groupName in groups)
             {
                 groupPicker.Items.Add(groupName);
             }
 
-            var teachers = await scheduleService.GetTeachers();
+            var teachers = await scheduleService.GetTeachers(ScheduleName);
             foreach (var teacherName in teachers)
             {
                 teacherPicker.Items.Add(teacherName);
@@ -98,38 +99,75 @@ namespace UDUNT_TimeTable
                 WidthRequest = 150,
                 HeightRequest = 90
             };
-            if (groupClass.WeekType != WeekType.None)
+            if (groupClass.SubType == SubType.Unknown)
             {
-                if (groupClass.WeekType == WeekType.Numerator)
+                if (groupClass.WeekType != WeekType.None)
                 {
-                    sl = new StackLayout();
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                    ViewSubjectGroup(sl, groupClass);
+                    if (groupClass.WeekType == WeekType.Numerator)
+                    {
+                        sl = new StackLayout();
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                        ViewSubjectGroup(sl, groupClass);
+                    }
+                    else
+                    {
+                        sl = new StackLayout();
+                        if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 0)
+                        {
+                            sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
+                            sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                        }
+                        else
+                            sls[weekDayCounter - 1, numberCounter - 1].Children.RemoveAt(2);
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                        ViewSubjectGroup(sl, groupClass);
+                    }
+                    if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 1)
+                    {
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
+                    }
                 }
                 else
                 {
                     sl = new StackLayout();
-                    if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count==0)
-                    {
-                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
-                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-                    }
-                    else
-                        sls[weekDayCounter - 1, numberCounter - 1].Children.RemoveAt(2);
                     sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
                     ViewSubjectGroup(sl, groupClass);
-                }
-                if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 1)
-                {
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
                 }
             }
             else
             {
+                if(sls[weekDayCounter - 1, numberCounter - 1].Children.Count > 0)
+                {
+                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+                }
                 sl = new StackLayout();
+                Label labelDate = new Label();
+                labelDate.Text = groupClass.Date.ToShortDateString();
+                Label labelSubType= new Label();
+                if (groupClass.SubType == SubType.Consultation)
+                    labelSubType.Text = "Консультація";
+                else
+                    labelSubType.Text = "Модульний контроль";
+                Label labelSubject = new Label();
+                labelSubject.Text = groupClass.Subject;
+                Label labelTeacher = new Label();
+                labelTeacher.Text = groupClass.Teacher.Name;
+                Label labelTime = new Label();
+                labelTime.Text = groupClass.Date.ToShortTimeString();
+
+                labelDate.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
+                labelSubType.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
+                labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
+                labelTeacher.FontSize = 18; labelTeacher.FontAttributes = FontAttributes.Italic;
+                labelTime.FontSize = 20;
+
+                sl.Children.Add(labelDate);
+                sl.Children.Add(labelSubType);
+                sl.Children.Add(labelSubject);
+                sl.Children.Add(labelTeacher);
+                sl.Children.Add(labelTime);
                 sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                ViewSubjectGroup(sl, groupClass);
             }
         }
 
@@ -191,47 +229,91 @@ namespace UDUNT_TimeTable
                 HeightRequest = 90
             };
 
+            int i = weekDayCounter - 1;
+            int j = numberCounter - 1;
+
             bool isOneGroup = true;
+            if (sls[i,j].Children.Count > 0)
+                isOneGroup = false;
 
-
-            if (teacherClass.WeekType != WeekType.None)
+            if (teacherClass.SubType == SubType.Unknown)
             {
-                if (teacherClass.WeekType == WeekType.Numerator)
+                if (teacherClass.WeekType != WeekType.None)
                 {
-                    sl = new StackLayout();
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                    ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+                    if (teacherClass.WeekType == WeekType.Numerator)
+                    {
+                        if (isOneGroup == false)
+                        {
+                            sls[i, j].Children.RemoveAt(sls[i, j].Children.Count - 1);
+                            sls[i, j].Children.RemoveAt(sls[i, j].Children.Count - 1);
+                        }
+                        sl = new StackLayout();
+                        sls[i, j].Children.Add(sl);
+                        ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+                        sls[i, j].Children.Add(labelSeparator);
+                        sls[i, j].Children.Add(box);
+                    }
+                    else
+                    {
+                        sl = new StackLayout();
+                        if (sls[i, j].Children.Count == 0)
+                        {
+                            sls[i, j].Children.Add(box);
+                            sls[i, j].Children.Add(labelSeparator);
+                        }
+                        else
+                            sls[i, j].Children.RemoveAt(2);
+
+
+                        sls[i, j].Children.Add(sl);
+                        ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+                    }
+
                 }
                 else
                 {
                     sl = new StackLayout();
-                    if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 0)
-                    {
-                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
-                        sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-                    }
-                    else
-                        sls[weekDayCounter - 1, numberCounter - 1].Children.RemoveAt(2);
-
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
+                    sls[i, j].Children.Add(sl);
                     ViewSubjectTeacher(sl, teacherClass, isOneGroup);
-                }
-                if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count == 1)
-                {
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(box);
                 }
             }
             else
             {
-                if (sls[weekDayCounter - 1, numberCounter - 1].Children.Count > 0)
-                    isOneGroup = false;
 
                 sl = new StackLayout();
-                sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
-                ViewSubjectTeacher(sl, teacherClass, isOneGroup);
+                Label labelDate = new Label();
+                labelDate.Text = teacherClass.Date.ToShortDateString();
+                Label labelSubType = new Label();
+                if (teacherClass.SubType == SubType.Consultation)
+                    labelSubType.Text = "Консультація";
+                else
+                    labelSubType.Text = "Модульний контроль";
+                Label labelSubject = new Label();
+                labelSubject.Text = teacherClass.Subject;
+                Label labelGroup = new Label();
+                labelGroup.Text = teacherClass.Group.Name;
+                Label labelTime = new Label();
+                labelTime.Text = teacherClass.Date.ToShortTimeString();
+
+                labelDate.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
+                labelSubType.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
+                labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
+                labelGroup.FontSize = 18; labelGroup.FontAttributes = FontAttributes.Italic;
+                labelTime.FontSize = 20;
+
+                if (sls[i, j].Children.Count > 0)
+                   sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
+
+                sl.Children.Add(labelDate);
+                sl.Children.Add(labelSubType);
+                sl.Children.Add(labelSubject);
+                sl.Children.Add(labelTime);
+                sls[i, j].Children.Add(labelGroup);
+                sls[i, j].Children.Add(sl);
+                
             }
-            
+
+
         }
 
         public void ViewSubjectTeacher(StackLayout sl, Class teacherClass, bool isOneGroup)
@@ -273,7 +355,7 @@ namespace UDUNT_TimeTable
         }
         public async void ShowScheduleForGroup()
         {
-            var  groups = await scheduleService.GetGroups();
+            var  groups = await scheduleService.GetGroups(ScheduleName);
             if (groupPicker.SelectedItem != null)
                 foreach (var groupName in  groups)
                 {
@@ -287,7 +369,7 @@ namespace UDUNT_TimeTable
         }
         public async void ShowScheduleForTeacher()
         {
-            var teachers = await scheduleService.GetTeachers();
+            var teachers = await scheduleService.GetTeachers(ScheduleName);
             if (teacherPicker.SelectedItem != null)
                 foreach (var teacherName in teachers)
                 {
@@ -349,6 +431,7 @@ namespace UDUNT_TimeTable
             else
                 ShowScheduleForTeacher();
         }
+
 
     }
 }

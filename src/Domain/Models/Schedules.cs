@@ -10,10 +10,12 @@ namespace Domain.Models
         private List<Class> classes;
 
         public string Name { get; }
-        public DateTime CreatedDateTime { get; }
+        public string Year { get; }
+        public Uri Url { get; }
+        public byte[] Checksum { get; }
         public IEnumerable<Class> Classes => classes;
 
-        public Schedules(string name, DateTime createdDateTime, IEnumerable<Class>? classes = null)
+        public Schedules(string name, string year, Uri url, byte[] checksum, IEnumerable<Class>? classes = null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -21,8 +23,11 @@ namespace Domain.Models
             }
 
             this.classes = classes?.ToList() ?? new List<Class>();
+
             Name = name;
-            CreatedDateTime = createdDateTime;
+            Year = year;
+            Checksum = checksum;
+            Url = url;
         }
 
         public void AddClasses(IEnumerable<Class> classes)

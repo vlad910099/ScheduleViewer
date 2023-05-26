@@ -1,6 +1,7 @@
-﻿using Domain.Enums;
+﻿ using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -16,6 +17,8 @@ namespace Domain.Models
         public Group Group { get; set; }
         public Teacher Teacher { get; set; }
         public string Room { get; set; }
+        public SubType SubType { get; set; }
+        public DateTime Date { get; set; }
 
         public Class(string scheduleName,
                      int weekDay,
@@ -24,7 +27,10 @@ namespace Domain.Models
                      string subject,
                      Group group,
                      Teacher teacher,
-                     string room)
+                     string room,
+                     SubType subType,
+                     DateTime date
+            )
         {
             if (string.IsNullOrEmpty(scheduleName))
             {
@@ -44,6 +50,8 @@ namespace Domain.Models
             Group = group ?? throw new ArgumentNullException(nameof(group));
             Teacher = teacher;
             Room = room;
+            SubType = subType;
+            Date = date;
         }
 
         public Class()

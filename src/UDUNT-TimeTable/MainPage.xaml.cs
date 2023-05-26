@@ -15,7 +15,8 @@ namespace UDUNT_TimeTable
     public partial class MainPage : ContentPage
     {
         private readonly ScheduleService scheduleService;
-        public MainPage()
+        private ScheduleInfo[] availableScheduleNames;
+       public MainPage()
         {
             InitializeComponent();
             scheduleService = Startup.ServiceProvider.GetService<ScheduleService>();
@@ -23,21 +24,29 @@ namespace UDUNT_TimeTable
 
         protected override async void OnAppearing()
         {
-            Ilogo.Source = ImageSource.FromResource("UDUNT-TimeTable.Images.logo_udunt.png");
+            //Ilogo.Source = ImageSource.FromResource("UDUNT-TimeTable.Images.logo_udunt.png");
 
-            var availableScheduleNames = await scheduleService.GetAvailableScheduleNames();
+            availableScheduleNames = await scheduleService.GetSchedules();
+            string[] schedules = new string[availableScheduleNames.Count()];
+            
+            for (int i = 0; i < availableScheduleNames.Length; i++)
+                schedules[i] = availableScheduleNames[i].Name;
 
-            listView.ItemsSource = availableScheduleNames;
+            listView.ItemsSource = schedules;
+            
         }
         private async void onScheduleSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
-            var availableScheduleNames = await scheduleService.GetAvailableScheduleNames();
-
-            if (e.SelectedItem != null && availableScheduleNames[0] != null && e.SelectedItem.ToString() == availableScheduleNames[0])
-                await Navigation.PushAsync(new Schedule(e.SelectedItem.ToString()));
-            else if (e.SelectedItem != null && availableScheduleNames[1] != null && e.SelectedItem.ToString() == availableScheduleNames[1])
-                await Navigation.PushAsync(new ShcMK1());
+            var selectedScheduleName = e.SelectedItem.ToString();
+            if (selectedScheduleName.Contains("Розклад занять") || selectedScheduleName.Contains("МК"))
+            {
+                var selectIndex = e.SelectedItemIndex;
+                await scheduleService.LoadSchedule(availableScheduleNames[selectIndex]);
+                await Navigation.PushAsync(new Schedule(selectedScheduleName));
+            }
+            else
+                await DisplayAlert("Увага!", "Відображення даного розкладу знаходиться в розробці!", "OK");
+            
         }
     }
 }

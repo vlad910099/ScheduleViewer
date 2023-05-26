@@ -8,8 +8,10 @@ namespace UDUNT_TimeTable.Services
 {
     public interface IScheduleProvider
     {
-        Task<string[]> GetAvailableScheduleNames();
-        Task<ScheduleInfo> GetInfo(string name);
-        Task<Schedules> Get(string name);
+        Task<ScheduleInfo[]> GetSchedules();
+        Task<ScheduleInfo> GetScheduleInfo(ScheduleInfo initialScheduleInfo);
+        Task<Schedules> Get(ScheduleInfo scheduleInfo);
+
+
     }
 }

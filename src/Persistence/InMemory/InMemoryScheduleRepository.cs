@@ -1,30 +1,43 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
-using System;
+using Domain.Repositoryes;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace UDUNT_TimeTable.Persistence.InMemory
+namespace Persistence.InMemory
 {
     public class InMemoryScheduleRepository : IScheduleRepository
     {
-        private static readonly List<ScheduleInfo> schedules = new List<ScheduleInfo>()
-        {
-            new ScheduleInfo("Розклад занять на 2 семестр 2022/23 н.р.", DateTime.Now),
-            new ScheduleInfo("Розклад занять на 1 семестр 2022/23 н.р.", DateTime.Now.AddDays(-30)),
-            //new ScheduleInfo("Розклад МК1 2022/23 н.р.", DateTime.Now)
-        };
+        private readonly IClassRepository classRepository;
 
-        public Task Create(Schedules schedule)
+        public InMemoryScheduleRepository(IClassRepository classRepository)
         {
-            return Task.CompletedTask;
+            this.classRepository = classRepository;
         }
 
-        public Task Delete(string name)
+        private static readonly List<ScheduleInfo> schedules = new List<ScheduleInfo>();
+
+        public async Task Create(Schedules schedule)
         {
-            return Task.CompletedTask;
+            var scheduleInfo = new ScheduleInfo(schedule.Name, schedule.Year, schedule.Url, schedule.Checksum);
+            schedules.Add(scheduleInfo);
+
+            foreach (var item in schedule.Classes)
+            {
+                await classRepository.Create(item);
+            }
+        }
+
+        public async Task Delete(string name)
+        {
+            var scheduleInfo = schedules.FirstOrDefault(s => s.Name == name);
+
+            if (scheduleInfo != null)
+            {
+                schedules.Remove(scheduleInfo);
+                await classRepository.Delete(name);
+            }
         }
 
         public Task<ScheduleInfo?> Get(string name)
@@ -32,9 +45,10 @@ namespace UDUNT_TimeTable.Persistence.InMemory
             return Task.FromResult(schedules.FirstOrDefault(s => s.Name == name));
         }
 
-        public Task<IEnumerable<ScheduleInfo>> GetAvailableSchedules()
+        public Task<ScheduleInfo[]> GetSchedules()
         {
-            return Task.FromResult<IEnumerable<ScheduleInfo>>(schedules);
+            
+            return Task.FromResult(schedules.ToArray());
         }
     }
 }

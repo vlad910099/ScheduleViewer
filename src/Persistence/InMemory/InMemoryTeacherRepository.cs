@@ -1,38 +1,38 @@
-﻿using Domain.Interfaces;
+﻿using Domain;
+using Domain.Interfaces;
 using Domain.Models;
+using Domain.Repositoryes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace UDUNT_TimeTable.Persistence.InMemory
+
+
+namespace Persistence.InMemory
 {
     public class InMemoryTeacherRepository : ITeacherRepository
     {
-        private static List<Teacher> teachers = new List<Teacher>
-        {
-            new Teacher("ст.в.Самойлов С.П."),
-            new Teacher("доц.Нечай І.В."),
-            new Teacher("ст.в.Шаповал І.В."),
-            new Teacher("доц.Горбова О.В."),
-            new Teacher("доц.Куроп'ятник О.С.")
-        };
+        private readonly IClassRepository classRepository;
 
-        public Task Create(Teacher teacher)
+        public InMemoryTeacherRepository(IClassRepository classRepository)
         {
-            teachers.Add(teacher);
-            return Task.CompletedTask;
+            this.classRepository = classRepository;
         }
 
-        public Task<IEnumerable<Teacher>> Get()
+        public async Task<IEnumerable<Teacher>> Get(string scheduleName)
         {
-            return Task.FromResult<IEnumerable<Teacher>>(teachers);
+            var searchCriteria = new SearchCriteria(scheduleName, null, null);
+            var classes = await classRepository.Get(searchCriteria);
+
+            return classes.Where(c => c.Teacher.Name != "-").Select(c => c.Teacher).Distinct().ToList();
+            //Where(c => c.Teacher != null)
         }
 
-        public Task<Teacher?> Get(string name)
+        public async Task<IEnumerable<Teacher>> Get(string scheduleName, string name)
         {
-            return Task.FromResult(teachers.FirstOrDefault(t => t.Name == name));
+            var teachers = await Get(scheduleName);
+            return teachers.Where(t => t.Name.Contains(name)).ToList();
         }
     }
 }

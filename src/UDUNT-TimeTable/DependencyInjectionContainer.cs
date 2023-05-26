@@ -6,23 +6,29 @@ using Domain.Interfaces;
 using UDUNT_TimeTable.Services;
 using Microsoft.Extensions.DependencyInjection;
 using UDUNT_TimeTable.Persistence.InMemory;
+using Main.Parsers;
+using Main.Services;
+using Persistence.InMemory;
 
 namespace UDUNT_TimeTable
 {
 public static class DependencyInjectionContainer
 {
-    public static IServiceCollection ConfigureServices(this IServiceCollection services)
-    {
-        services.AddScoped<ITeacherRepository, InMemoryTeacherRepository>();
-        services.AddScoped<IGroupRepository, InMemoryGroupRepository>();
-        services.AddScoped<IClassRepository, InMemoryClassRepository>();
-        services.AddScoped<IScheduleRepository, InMemoryScheduleRepository>();
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        {
+            services.AddScoped<ITeacherRepository, InMemoryTeacherRepository>();
+            services.AddScoped<IGroupRepository, InMemoryGroupRepository>();
+            services.AddScoped<IClassRepository, InMemoryClassRepository>();
+            services.AddScoped<IScheduleRepository, InMemoryScheduleRepository>();
 
-        services.AddScoped<IScheduleProvider, InMemoryScheduleProvider>();
+            services.AddScoped<IScheduleProvider, SiteScheduleProvider>();
 
-        services.AddScoped<ScheduleService>();
+            services.AddScoped<IFileScheduleParser, ClassFileParser>();
+            services.AddScoped<IFileScheduleParser, ModuleFileParser>();
 
-        return services;
+            services.AddScoped<ScheduleService>();
+
+            return services;
+        }
     }
-}
 }

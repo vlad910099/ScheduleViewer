@@ -6,7 +6,8 @@ namespace Domain.Enums
 {
     public enum SubType
     {
+        Unknown,
         Exam,
-        Advice
+        Consultation
     }
 }

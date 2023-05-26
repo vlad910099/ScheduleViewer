@@ -213,9 +213,6 @@
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
             "projectReferences": {
-              "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\Domain\\Domain.csproj"
-              },
               "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\Persistence\\Persistence.csproj": {
                 "projectPath": "C:\\Users\\vladz\\OneDrive\\Документы\\GitHub\\Diplom\\UDUNT-TimeTable\\src\\Persistence\\Persistence.csproj"
               }
@@ -232,6 +229,10 @@
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.46, )"
+            },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[7.0.0, )"
@@ -242,13 +243,17 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.6.0, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
-              "version": "[1.7.0, )"
+              "version": "[1.7.5, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[5.0.0.2196, )"
+              "version": "[5.0.0.2578, )"
             }
           },
           "imports": [

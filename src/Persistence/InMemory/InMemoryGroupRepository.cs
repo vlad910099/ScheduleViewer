@@ -1,36 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain;
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.Repositoryes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace UDUNT_TimeTable.Persistence.InMemory
 {
     public class InMemoryGroupRepository : IGroupRepository
     {
-        private static List<Group> groups = new List<Group>()
-        {
-            new Group("ПЗ22130", "920П"),
-            new Group("ПЗ2112", "922"),
-            new Group("ПЗ2111", "921")
-        };
+        private readonly IClassRepository classRepository;
 
-        public Task Create(Group group)
+        public InMemoryGroupRepository(IClassRepository classRepository)
         {
-            groups.Add(group);
-            return Task.CompletedTask;
+            this.classRepository = classRepository;
         }
 
-        public Task<IEnumerable<Group>> Get()
+        public async Task<IEnumerable<Group>> Get(string scheduleName)
         {
-            return Task.FromResult<IEnumerable<Group>>(groups);
+            var searchCriteria = new SearchCriteria(scheduleName, null, null);
+            var classes = await classRepository.Get(searchCriteria);
+
+            return classes.Select(c => c.Group).Distinct().ToList();
         }
 
-        public Task<Group?> Get(string name)
+        public async Task<IEnumerable<Group>> Get(string scheduleName, string name)
         {
-            return Task.FromResult(groups.FirstOrDefault(t => t.Name == name));
+            var groups = await Get(scheduleName);
+            return groups.Where(t => t.Name.Contains(name)).ToList();
         }
     }
 }
