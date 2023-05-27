@@ -1,38 +1,24 @@
-﻿using Domain;
-using Domain.Interfaces;
-using Domain.Models;
-using Domain.Repositoryes;
-using System;
+﻿using Domain.Models;
+using Domain.PersistenceInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-
 
 namespace Persistence.InMemory
 {
     public class InMemoryTeacherRepository : ITeacherRepository
     {
-        private readonly IClassRepository classRepository;
+        private readonly IScheduleRepository scheduleRepository;
 
-        public InMemoryTeacherRepository(IClassRepository classRepository)
+        public InMemoryTeacherRepository(IScheduleRepository scheduleRepository)
         {
-            this.classRepository = classRepository;
+            this.scheduleRepository = scheduleRepository;
         }
 
         public async Task<IEnumerable<Teacher>> Get(string scheduleName)
         {
-            var searchCriteria = new SearchCriteria(scheduleName, null, null);
-            var classes = await classRepository.Get(searchCriteria);
-
-            return classes.Where(c => c.Teacher.Name != "-").Select(c => c.Teacher).Distinct().ToList();
-            //Where(c => c.Teacher != null)
-        }
-
-        public async Task<IEnumerable<Teacher>> Get(string scheduleName, string name)
-        {
-            var teachers = await Get(scheduleName);
-            return teachers.Where(t => t.Name.Contains(name)).ToList();
+            var classes = await scheduleRepository.GetClasses(scheduleName);
+            return classes.Where(c => c.Teacher != null && c.Teacher.Name != "-").Select(c => c.Teacher).Distinct().ToList();
         }
     }
 }

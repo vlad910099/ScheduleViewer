@@ -1,6 +1,6 @@
-﻿using Domain.Interfaces;
+﻿using Domain;
 using Domain.Models;
-using Domain.Repositoryes;
+using Domain.PersistenceInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,46 +9,56 @@ namespace Persistence.InMemory
 {
     public class InMemoryScheduleRepository : IScheduleRepository
     {
-        private readonly IClassRepository classRepository;
+        private static readonly List<Schedule> schedules = new List<Schedule>();
 
-        public InMemoryScheduleRepository(IClassRepository classRepository)
+        public Task Create(Schedule schedule)
         {
-            this.classRepository = classRepository;
+            schedules.Add(schedule);
+            return Task.CompletedTask;
         }
 
-        private static readonly List<ScheduleInfo> schedules = new List<ScheduleInfo>();
-
-        public async Task Create(Schedules schedule)
+        public Task Delete(string name)
         {
-            var scheduleInfo = new ScheduleInfo(schedule.Name, schedule.Year, schedule.Url, schedule.Checksum);
-            schedules.Add(scheduleInfo);
+            var schedule = schedules.Find(s => s.Info.Name == name);
 
-            foreach (var item in schedule.Classes)
+            if (schedule != null)
             {
-                await classRepository.Create(item);
+                schedules.Remove(schedule);
             }
+
+            return Task.CompletedTask;
         }
 
-        public async Task Delete(string name)
+        public Task<ScheduleInfo[]> Get()
         {
-            var scheduleInfo = schedules.FirstOrDefault(s => s.Name == name);
+            return Task.FromResult(schedules.Select(s => s.Info).ToArray());
+        }
 
-            if (scheduleInfo != null)
+        public Task<IEnumerable<Class>> GetClasses(string name)
+        {
+            return Task.FromResult(schedules.Find(s => s.Info.Name == name)?.Classes);
+        }
+
+        public Task<IEnumerable<Class>> GetClasses(SearchCriteria searchCriteria)
+        {
+            var classes = schedules.Find(s => s.Info.Name == searchCriteria.ScheduleName)?.Classes;
+
+            if (!string.IsNullOrEmpty(searchCriteria.TeacherName))
             {
-                schedules.Remove(scheduleInfo);
-                await classRepository.Delete(name);
+                classes = classes.Where(c => c.Teacher?.Name == searchCriteria.TeacherName);
             }
+
+            if (!string.IsNullOrEmpty(searchCriteria.GroupName))
+            {
+                classes = classes.Where(c => c.Group.Name == searchCriteria.GroupName);
+            }
+
+            return Task.FromResult<IEnumerable<Class>>(classes.ToList());
         }
 
-        public Task<ScheduleInfo?> Get(string name)
+        public Task<ScheduleInfo> GetInfo(string name)
         {
-            return Task.FromResult(schedules.FirstOrDefault(s => s.Name == name));
-        }
-
-        public Task<ScheduleInfo[]> GetSchedules()
-        {
-            
-            return Task.FromResult(schedules.ToArray());
+            return Task.FromResult(schedules.Find(s => s.Info.Name == name)?.Info);
         }
     }
 }

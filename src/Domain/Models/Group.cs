@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Models
 {
     public class Group
     {
-        public string Name { get; set; }
-        public string AlternativeName { get; set; }
+        public string Name { get; }
+        public string AlternativeName { get; }
 
         public Group(string name, string alternativeName)
         {
@@ -19,5 +18,9 @@ namespace Domain.Models
             Name = name;
             AlternativeName = alternativeName;
         }
+
+        public override bool Equals(object obj) => obj is Group group && Name == group.Name;
+
+        public override int GetHashCode() => 539060726 + EqualityComparer<string>.Default.GetHashCode(Name);
     }
 }

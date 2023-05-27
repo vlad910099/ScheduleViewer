@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Models
 {
     public class Teacher
     {
-        public string Name { get; set; }
+        public string Name { get; }
 
         public Teacher(string name)
         {
@@ -17,5 +16,9 @@ namespace Domain.Models
 
             Name = name;
         }
+
+        public override bool Equals(object obj) => obj is Teacher teacher && Name == teacher.Name;
+
+        public override int GetHashCode() => 539060726 + EqualityComparer<string>.Default.GetHashCode(Name);
     }
 }

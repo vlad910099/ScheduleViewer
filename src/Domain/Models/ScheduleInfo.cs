@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Models
 {
@@ -9,10 +7,9 @@ namespace Domain.Models
         public string Name { get; }
         public string Year { get; }
         public Uri Url { get; }
-        public byte[]? Checksum { get; }
-        public DateTime? CreatedDateTime { get; }
+        public string Checksum { get; }
 
-        public ScheduleInfo(string name, string year, Uri url, byte[]? checksum)
+        public ScheduleInfo(string name, string year, Uri url, string checksum)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -24,6 +21,5 @@ namespace Domain.Models
             Url = url;
             Checksum = checksum;
         }
-
     }
 }

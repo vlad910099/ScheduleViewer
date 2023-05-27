@@ -1,14 +1,11 @@
 ﻿using Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Domain.PersistenceInterfaces
 {
     public interface ITeacherRepository
     {
         Task<IEnumerable<Teacher>> Get(string scheduleName);
-        Task<IEnumerable<Teacher>> Get(string scheduleName, string name);
     }
 }
