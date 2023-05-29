@@ -31,66 +31,73 @@ namespace Core.Parsers
                 using (var ms = new MemoryStream(fileData))
                 {
                     var workbook = fileType == FileType.Xls ? new HSSFWorkbook(ms) : (IWorkbook)new XSSFWorkbook(ms);
-                    var sheet = workbook.GetSheetAt(0); // TODO У файлі більше одного листа
-                    var columnsCount = sheet.GetRow(3).Count();
-                    var rowCount = 74; // TODO ???
-
+                     
+                    int countSheet = 2; 
                     var classes = new List<Class>();
-
-                    for (var columnIndex = 2; columnIndex < columnsCount; columnIndex += 2)
+                    for (var sheetIndex = 0; sheetIndex < countSheet; sheetIndex++)
                     {
-                        var cells = new List<ICell>();
+                        var sheet = workbook.GetSheetAt(sheetIndex);
 
-                        for (var rowIndex = 3; rowIndex <= rowCount; rowIndex++)
+                        var columnsCount = sheet.GetRow(3).Count();
+                        var rowCount = sheet.LastRowNum;
+
+                       
+
+                        for (var columnIndex = 2; columnIndex < columnsCount; columnIndex += 2)
                         {
-                            var row = sheet.GetRow(rowIndex);
+                            var cells = new List<ICell>();
 
-                            if (row == null)
+                            for (var rowIndex = 3; rowIndex <= rowCount; rowIndex++)
                             {
-                                rowCount = rowIndex - 1;
-                                break;
-                            }
+                                var row = sheet.GetRow(rowIndex);
 
-                            var cell = row.GetCell(columnIndex);
-                            cells.Add(cell);
-                        }
-
-                        for (var cellIndex = 0; cellIndex < cells.Count; cellIndex += rowCount)
-                        {
-                            var stringValue = cells[cellIndex].StringCellValue;
-                            var groupNameParts = stringValue.Split('\n');
-                            var group = new Group(groupNameParts[0], groupNameParts[1]);
-
-                            for (var index = cellIndex + 1; index < rowCount && index + 5 < rowCount; index += 5)
-                            {
-                                if (index + 6 > cells.Count)
+                                if (row == null)
                                 {
+                                    rowCount = rowIndex - 1;
                                     break;
                                 }
 
-                                if (cells[index] != null
-                                    && cells[index + 1] != null
-                                    && cells[index + 2] != null
-                                    && cells[index + 3] != null
-                                    && cells[index + 4] != null
-                                    && !string.IsNullOrEmpty(cells[index + 2].StringCellValue))
-                                {
-                                    var subject = cells[index + 2].StringCellValue;
-                                    var teacher = new Teacher(cells[index + 3].StringCellValue);
-                                    var date = cells[index].DateCellValue;
-                                    var timeStringValue = cells[index + 4].StringCellValue;
-                                    var timeParts = timeStringValue.Split('-');
-                                    var fullDate = new DateTime(date.Year, date.Month, date.Day, int.Parse(timeParts[0]), int.Parse(timeParts[1]), 0);
-                                    var number = GetClassNumber(timeStringValue);
-                                    var subType = cells[index + 1].StringCellValue == "Консультація" ? ClassSubType.Consultation : ClassSubType.Exam;
+                                var cell = row.GetCell(columnIndex);
+                                cells.Add(cell);
+                            }
 
-                                    var @class = new Class(subject, group, teacher, null, (int)date.DayOfWeek, number, WeekType.None, subType, fullDate);
-                                    classes.Add(@class);
+                            for (var cellIndex = 0; cellIndex < cells.Count; cellIndex += rowCount)
+                            {
+                                var stringValue = cells[cellIndex].StringCellValue;
+                                var groupNameParts = stringValue.Split('\n');
+                                var group = new Group(groupNameParts[0], groupNameParts[1]);
+
+                                for (var index = cellIndex + 1; index < rowCount && index + 5 < rowCount; index += 5)
+                                {
+                                    if (index + 6 > cells.Count)
+                                    {
+                                        break;
+                                    }
+
+                                    if (cells[index] != null
+                                        && cells[index + 1] != null
+                                        && cells[index + 2] != null
+                                        && cells[index + 3] != null
+                                        && cells[index + 4].StringCellValue != ""
+                                        && !string.IsNullOrEmpty(cells[index + 2].StringCellValue))
+                                    {
+                                        var subject = cells[index + 2].StringCellValue;
+                                        var teacher = new Teacher(cells[index + 3].StringCellValue);
+                                        var date = cells[index].DateCellValue;
+                                        var timeStringValue = cells[index + 4].StringCellValue;
+                                        var timeParts = timeStringValue.Split('-');
+                                        var fullDate = new DateTime(date.Year, date.Month, date.Day, int.Parse(timeParts[0]), int.Parse(timeParts[1]), 0);
+                                        var number = GetClassNumber(timeStringValue);
+                                        var subType = cells[index + 1].StringCellValue == "Консультація" ? ClassSubType.Consultation : ClassSubType.Exam;
+
+                                        var @class = new Class(subject, group, teacher, null, (int)date.DayOfWeek, number, WeekType.None, subType, fullDate);
+                                        classes.Add(@class);
+                                    }
                                 }
                             }
                         }
                     }
-
+                    var res = new ParseResult(classes.ToArray(), null);
                     return new ParseResult(classes.ToArray(), null);
                 }
             }

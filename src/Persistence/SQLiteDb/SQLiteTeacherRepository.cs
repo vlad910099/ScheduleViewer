@@ -18,7 +18,7 @@ namespace Persistence.SQLiteDb
 
         public async Task<IEnumerable<Teacher>> Get(string scheduleName)
         {
-            var teachers = await database.QueryAsync<TeacherData>($"SELECT DISTINCT {nameof(TeacherData.TeacherName)} FROM {TableNames.ClassTableName} WHERE {nameof(Entities.Class.ScheduleName)} = {scheduleName}");
+            var teachers = await database.QueryAsync<TeacherData>($"SELECT DISTINCT {nameof(TeacherData.TeacherName)} FROM {TableNames.ClassTableName} WHERE {nameof(Entities.Class.ScheduleName)} = ?", scheduleName);
             return teachers.Select(g => new Teacher(g.TeacherName)).ToArray();
         }
     }

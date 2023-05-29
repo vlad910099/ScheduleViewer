@@ -52,11 +52,11 @@ namespace Core.Services
             var dbScheduleInfo = await scheduleRepository.GetInfo(scheduleInfo.Name);
 
             if (dbScheduleInfo == null)
-            {
+            {   
                 var schedule = await scheduleProvider.Get(extendedScheduleInfo);
                 await scheduleRepository.Create(schedule);
             }
-            else if (!string.Equals(dbScheduleInfo.Checksum, scheduleInfo.Checksum))
+            else if (!string.Equals(dbScheduleInfo.Checksum, extendedScheduleInfo.Checksum))
             {
                 var schedule = await scheduleProvider.Get(extendedScheduleInfo);
 

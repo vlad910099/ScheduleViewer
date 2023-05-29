@@ -255,7 +255,18 @@ namespace Core.Services
                         if (!string.IsNullOrEmpty(href))
                         {
                             var scheduleName = linkNode.InnerText.Replace("&nbsp;", " ");
-                            var scheduleUrl = href.Replace("////", "https://");
+                            string scheduleUrl;
+                            if (!href.StartsWith("http"))
+                            {
+                                if (href.Contains("////"))
+                                    scheduleUrl = href.Replace("////", "https://");
+                                else
+                                    scheduleUrl = "https:" + href;
+                            }
+                            else
+                            {
+                                scheduleUrl = href;
+                            }
 
                             if (scheduleUrl.EndsWith(".xls") || scheduleUrl.EndsWith(".xlsx"))
                             {

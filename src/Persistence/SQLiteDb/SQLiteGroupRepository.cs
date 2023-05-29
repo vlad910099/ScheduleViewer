@@ -18,7 +18,9 @@ namespace Persistence.SQLiteDb
 
         public async Task<IEnumerable<Group>> Get(string scheduleName)
         {
-            var groups = await database.QueryAsync<GroupData>($"SELECT DISTINCT {nameof(GroupData.GroupName)} FROM {TableNames.ClassTableName} WHERE {nameof(Entities.Class.ScheduleName)} = {scheduleName}");
+            var records = await database.Table<Entities.Class>().Where(c => c.ScheduleName == scheduleName).ToListAsync();
+
+            var groups = await database.QueryAsync<GroupData>($"SELECT DISTINCT {nameof(GroupData.GroupName)} FROM {TableNames.ClassTableName} WHERE {nameof(Entities.Class.ScheduleName)} = ?", scheduleName);
             return groups.Select(g => new Group(g.GroupName, null)).ToArray();
         }
     }

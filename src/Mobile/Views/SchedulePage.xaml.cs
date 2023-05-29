@@ -3,6 +3,7 @@ using Domain;
 using Domain.Enums;
 using Domain.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -52,6 +53,8 @@ namespace Mobile
             var teachers = await scheduleService.GetTeachers(scheduleName);
             foreach (var teacherName in teachers)
             {
+                if (teacherName == "-")
+                    continue;
                 teacherPicker.Items.Add(teacherName);
             }
         }
@@ -196,7 +199,8 @@ namespace Mobile
 
             var searchCriteriaTeacher = new SearchCriteria(scheduleName, teacher, null);
             var teacherClasses = await scheduleService.GetClasses(searchCriteriaTeacher);
-            foreach (var teacherClass in teacherClasses)
+            var sortTeacherClasses = teacherClasses.OrderBy(x => x.Date).ToArray();
+            foreach (var teacherClass in sortTeacherClasses)
             {
                 for (int weekDayCounter = 1; weekDayCounter <= maxWeekday; weekDayCounter++)
                 {
@@ -279,6 +283,7 @@ namespace Mobile
             else
             {
                 sl = new StackLayout();
+                sls[i, j].Children.Add(sl);
                 Label labelDate = new Label();
                 labelDate.Text = teacherClass.Date.Value.ToShortDateString();
                 Label labelSubType = new Label();
@@ -304,17 +309,40 @@ namespace Mobile
                 labelGroup.FontSize = 18; labelGroup.FontAttributes = FontAttributes.Italic;
                 labelTime.FontSize = 20;
 
-                if (sls[i, j].Children.Count > 0)
-                {
-                    sls[weekDayCounter - 1, numberCounter - 1].Children.Add(labelSeparator);
-                }
+                Label label = new Label();
+                if (!isOneGroup)
+                    label = sls[i, j].Children.OfType<Label>().FirstOrDefault();
 
-                sl.Children.Add(labelDate);
-                sl.Children.Add(labelSubType);
-                sl.Children.Add(labelSubject);
-                sl.Children.Add(labelTime);
-                sls[i, j].Children.Add(labelGroup);
-                sls[i, j].Children.Add(sl);
+                if (isOneGroup)
+                {
+                    sls[i, j].Children.Add(labelDate);
+                    sl.Children.Add(labelSubType);
+                    sl.Children.Add(labelSubject);
+                    sl.Children.Add(labelTime);
+                    sl.Children.Add(labelGroup);
+                }
+                else if (label.Text != labelDate.Text)
+                {
+                    string str = "";
+                    if (sls[i, j].Children[sls[i, j].Children.Count - 2] is Label label1)
+                        str = label1.Text;
+
+                    if (str != labelDate.Text)
+                    {
+                        sls[i, j].Children.Add(labelSeparator);
+                        sls[i, j].Children.Add(labelDate);
+                        sl.Children.Add(labelSubType);
+                        sl.Children.Add(labelSubject);
+                        sl.Children.Add(labelTime);
+                        sl.Children.Add(labelGroup);
+                    }
+                    else
+                        sl.Children.Add(labelGroup);
+                }
+                else
+                {
+                    sl.Children.Add(labelGroup);
+                }
             }
         }
 

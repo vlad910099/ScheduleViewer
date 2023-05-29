@@ -98,20 +98,24 @@ namespace Core.Parsers
 
                                 if (cells[index].IsMergedCell)
                                 {
-                                    var teacher = !string.IsNullOrEmpty(cells[index + 3].StringCellValue) ? new Teacher(cells[index + 3].StringCellValue) : new Teacher("-");
-                                    var @class = new Class(cells[index].StringCellValue, group, teacher, null, weekDayCounter, numberCounter, WeekType.None);
+                                    if (!string.IsNullOrEmpty(cells[index].StringCellValue))
+                                    {
+                                        var teacher = !string.IsNullOrEmpty(cells[index + 3].StringCellValue) ? new Teacher(cells[index + 3].StringCellValue) : new Teacher("-");
+                                        var @class = new Class(cells[index].StringCellValue, group, teacher, null, weekDayCounter, numberCounter, WeekType.None);
 
-                                    classes.Add(@class);
+                                        classes.Add(@class);
+                                    }
                                 }
                                 else
                                 {
-                                    if (!string.IsNullOrEmpty(cells[index].StringCellValue))
+                                    if (!string.IsNullOrEmpty(cells[index].StringCellValue) )
                                     {
                                         var teacher = !string.IsNullOrEmpty(cells[index + 1].StringCellValue) ? new Teacher(cells[index + 1].StringCellValue) : new Teacher("-");
                                         var @class = new Class(cells[index].StringCellValue, group, teacher, null, weekDayCounter, numberCounter, WeekType.Numerator);
 
                                         classes.Add(@class);
                                     }
+                                    
                                     if (cells[index + 2] == null)
                                     {
                                         continue;
@@ -129,7 +133,7 @@ namespace Core.Parsers
                             }
                         }
                     }
-
+                    var res = new ParseResult(classes.ToArray(), null);
                     return new ParseResult(classes.ToArray(), null);
                 }
             }

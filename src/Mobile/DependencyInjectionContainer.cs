@@ -14,8 +14,8 @@ namespace Mobile
         {
             addPlatformSpecificServices.Invoke(services);
 
-            services = services.AddInMemoryRepositories();
-            //services = services.AddDbRepositories();
+            //services = services.AddInMemoryRepositories();
+            services = services.AddDbRepositories();
 
             services.AddScoped<IScheduleProvider, SiteScheduleProvider>();
 

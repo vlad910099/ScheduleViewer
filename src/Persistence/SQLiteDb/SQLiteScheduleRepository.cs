@@ -46,13 +46,14 @@ namespace Persistence.SQLiteDb
                 Timestamp = c.Date?.Ticks
             }).ToList();
 
+            var count = await database.InsertAllAsync(classRecords);
             await database.InsertAllAsync(classRecords);
         }
 
         public async Task Delete(string name)
         {
             await database.Table<Entities.Class>().Where(c => c.ScheduleName == name).DeleteAsync();
-            await database.DeleteAsync<Schedule>(name);
+            await database.DeleteAsync<Entities.Schedule>(name);
         }
 
         public async Task<ScheduleInfo[]> Get()
