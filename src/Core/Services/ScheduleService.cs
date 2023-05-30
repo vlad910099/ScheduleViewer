@@ -43,7 +43,7 @@ namespace Core.Services
                 scheduleInfos = await scheduleRepository.Get();
             }
 
-            return scheduleInfos.OrderByDescending(x => x.Year).ThenBy(x => x.Name).ToArray();
+            return scheduleInfos.OrderByDescending(x => x.Year).ThenByDescending(x => x.Name).ToArray();
         }
 
         public async Task LoadSchedule(ScheduleInfo scheduleInfo)

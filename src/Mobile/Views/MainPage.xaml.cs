@@ -19,8 +19,10 @@ namespace Mobile
 
         protected override async void OnAppearing()
         {
+
             scheduleInfos = await scheduleService.GetScheduleInfos();
             listView.ItemsSource = scheduleInfos.Select(s => s.Name);
+            
         }
 
         private async void onScheduleSelected(object sender, SelectedItemChangedEventArgs e)

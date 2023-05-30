@@ -46,7 +46,6 @@ namespace Persistence.SQLiteDb
                 Timestamp = c.Date?.Ticks
             }).ToList();
 
-            var count = await database.InsertAllAsync(classRecords);
             await database.InsertAllAsync(classRecords);
         }
 

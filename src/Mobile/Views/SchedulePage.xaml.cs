@@ -39,6 +39,7 @@ namespace Mobile
 
         protected override async void OnAppearing()
         {
+            schedulePage.Title = scheduleName;
             await InitializePickers();
         }
 
@@ -157,20 +158,17 @@ namespace Mobile
                 labelSubject.Text = groupClass.Subject;
                 Label labelTeacher = new Label();
                 labelTeacher.Text = groupClass.Teacher.Name;
-                Label labelTime = new Label();
-                labelTime.Text = groupClass.Date.Value.ToShortTimeString();
 
                 labelDate.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
                 labelSubType.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
                 labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
                 labelTeacher.FontSize = 18; labelTeacher.FontAttributes = FontAttributes.Italic;
-                labelTime.FontSize = 20;
 
                 sl.Children.Add(labelDate);
                 sl.Children.Add(labelSubType);
                 sl.Children.Add(labelSubject);
                 sl.Children.Add(labelTeacher);
-                sl.Children.Add(labelTime);
+
                 sls[weekDayCounter - 1, numberCounter - 1].Children.Add(sl);
             }
         }
@@ -266,9 +264,26 @@ namespace Mobile
                         }
                         else
                         {
-                            sls[i, j].Children.RemoveAt(2);
+                            
+                            if (sls[i, j].Children[sls[i, j].Children.Count - 2] is BoxView)
+                            {
+                                sls[i, j].Children.RemoveAt(sls[i, j].Children.Count - 2);
+                            }
                         }
 
+                        string str = "";
+                        if (sls[i, j].Children[sls[i, j].Children.Count - 1] is Label label1)
+                        {
+                            str = label1.Text;
+                        }
+                        if (str == labelSeparator.Text)
+                        {
+                            isOneGroup = true;
+                        }
+                        else
+                        {
+                            isOneGroup = false;
+                        }
                         sls[i, j].Children.Add(sl);
                         ViewSubjectTeacher(sl, teacherClass, isOneGroup);
                     }
@@ -283,7 +298,7 @@ namespace Mobile
             else
             {
                 sl = new StackLayout();
-                sls[i, j].Children.Add(sl);
+                
                 Label labelDate = new Label();
                 labelDate.Text = teacherClass.Date.Value.ToShortDateString();
                 Label labelSubType = new Label();
@@ -300,25 +315,22 @@ namespace Mobile
                 labelSubject.Text = teacherClass.Subject;
                 Label labelGroup = new Label();
                 labelGroup.Text = teacherClass.Group.Name;
-                Label labelTime = new Label();
-                labelTime.Text = teacherClass.Date.Value.ToShortTimeString();
 
                 labelDate.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
                 labelSubType.FontSize = 20; labelSubject.FontAttributes = FontAttributes.Bold;
                 labelSubject.FontSize = 18; labelSubject.FontAttributes = FontAttributes.Bold;
                 labelGroup.FontSize = 18; labelGroup.FontAttributes = FontAttributes.Italic;
-                labelTime.FontSize = 20;
+                
 
                 Label label = new Label();
-                if (!isOneGroup)
+                if (sls[i, j].Children.Count > 0)
                     label = sls[i, j].Children.OfType<Label>().FirstOrDefault();
 
-                if (isOneGroup)
+                if (sls[i, j].Children.Count == 0)
                 {
                     sls[i, j].Children.Add(labelDate);
                     sl.Children.Add(labelSubType);
                     sl.Children.Add(labelSubject);
-                    sl.Children.Add(labelTime);
                     sl.Children.Add(labelGroup);
                 }
                 else if (label.Text != labelDate.Text)
@@ -333,7 +345,6 @@ namespace Mobile
                         sls[i, j].Children.Add(labelDate);
                         sl.Children.Add(labelSubType);
                         sl.Children.Add(labelSubject);
-                        sl.Children.Add(labelTime);
                         sl.Children.Add(labelGroup);
                     }
                     else
@@ -343,6 +354,7 @@ namespace Mobile
                 {
                     sl.Children.Add(labelGroup);
                 }
+                sls[i, j].Children.Add(sl);
             }
         }
 
@@ -477,6 +489,17 @@ namespace Mobile
             {
                 ShowScheduleForTeacher();
             }
+            mondayFrame.IsVisible = false;
+            tuesdayFrame.IsVisible = false;
+            wednesdayFrame.IsVisible = false;
+            thursdayFrame.IsVisible = false;
+            fridayFrame.IsVisible = false;
+
+            mondayCheckbox.IsChecked = false;
+            tuesdayCheckbox.IsChecked = false;
+            wednesdayCheckbox.IsChecked = false;
+            thursdayCheckbox.IsChecked = false;
+            fridayCheckbox.IsChecked = false;
         }
     }
 }

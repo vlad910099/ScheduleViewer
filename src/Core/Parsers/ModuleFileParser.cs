@@ -43,7 +43,7 @@ namespace Core.Parsers
 
                        
 
-                        for (var columnIndex = 2; columnIndex < columnsCount; columnIndex += 2)
+                        for (var columnIndex = 0; columnIndex < columnsCount; columnIndex += 2)
                         {
                             var cells = new List<ICell>();
 
@@ -126,7 +126,7 @@ namespace Core.Parsers
                 case "14-30":
                     return 5;
 
-                case "15-00":
+                case "16-00":
                     return 6;
 
                 default:

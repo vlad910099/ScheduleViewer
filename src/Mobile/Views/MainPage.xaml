@@ -6,7 +6,7 @@
 
     <StackLayout Padding="10,10,10,10">
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Розклад занять" HorizontalTextAlignment="Center" TextColor="White" FontSize="32" />
+            <Label Text="Оберіть розклад" HorizontalTextAlignment="Center" TextColor="White" FontSize="32" />
         </Frame>
 
         <ListView x:Name="listView"  ItemSelected="onScheduleSelected" HorizontalOptions="Center"></ListView>
