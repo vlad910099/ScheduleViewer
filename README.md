@@ -1,15 +1,15 @@
 # ScheduleViewer
 __ScheduleViewer__ - мобільний додаток Xamarin C# для перегляду розкладу занять для студентів та викладачів [Українського державного університету науки і технолгій](https://ust.edu.ua/)
 # Функціонал
-1. Пергляд наявних розкладів
+1. Перегляд наявних розкладів
 2. Перегляд обраного розкладу занять для студентів
 3. Перегляд обраного розкладу занять для викладачів
 4. Перегляд обраного розкладу МК (модульний контроль) для студентів
 5. Перегляд обраного розкладу МК (модульний контроль) для викладачів
 # Приклад роботи
-![schedules](ScheduleViewer/ScreenShots/schdules.png)
-![classesForGroup](ScheduleViewer/ScreenShots/classesForGroup.png)
-![classesForTeacher](ScheduleViewer/ScreenShots/classesForTeacher.png)
-![mkForGroup](ScheduleViewer/ScreenShots/mkForGroup.png)
-![mkForTeacher](ScheduleViewer/ScreenShots/mkForTeacher.png)
+![schedules](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/schdules.png)
+![classesForGroup](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/classesForGroup.png)
+![classesForTeacher](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/classesForTeacher.png)
+![mkForGroup](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/mkForGroup.png)
+![mkForTeacher](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/mkForTeacher.png)
 
