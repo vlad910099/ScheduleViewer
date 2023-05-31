@@ -8,9 +8,8 @@ __ScheduleViewer__ - мобільний додаток Xamarin C# для пер�
 5. Перегляд обраного розкладу МК (модульний контроль) для викладачів
 # Приклад роботи
 ![schedules](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/schdules.png)
-![schedules](ScheduleViewer/ScreenShots/schdules.png)
-![classesForGroup](ScheduleViewer/ScreenShots/classesForGroup.png)
-![classesForTeacher](ScheduleViewer/ScreenShots/classesForTeacher.png)
-![mkForGroup](ScheduleViewer/ScreenShots/mkForGroup.png)
-![mkForTeacher](ScheduleViewer/ScreenShots/mkForTeacher.png)
+![classesForGroup](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/classesForGroup.png)
+![classesForTeacher](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/classesForTeacher.png)
+![mkForGroup](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/mkForGroup.png)
+![mkForTeacher](https://github.com/vlad910099/ScheduleViewer/blob/main/ScreenShots/mkForTeacher.png)
 
