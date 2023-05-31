@@ -7,6 +7,7 @@ __ScheduleViewer__ - мобільний додаток Xamarin C# для пер�
 4. Перегляд обраного розкладу МК (модульний контроль) для студентів
 5. Перегляд обраного розкладу МК (модульний контроль) для викладачів
 # Приклад роботи
+![schedules](https://github.com/{vlad910099}/{ScheduleViewer}/raw/ScreenShots/schdules.png)
 ![schedules](ScheduleViewer/ScreenShots/schdules.png)
 ![classesForGroup](ScheduleViewer/ScreenShots/classesForGroup.png)
 ![classesForTeacher](ScheduleViewer/ScreenShots/classesForTeacher.png)
