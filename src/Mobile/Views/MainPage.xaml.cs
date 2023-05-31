@@ -1,6 +1,7 @@
 ﻿using Core.Services;
 using Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
+using NPOI.HSSF.Record;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -22,21 +23,25 @@ namespace Mobile
 
             scheduleInfos = await scheduleService.GetScheduleInfos();
             listView.ItemsSource = scheduleInfos.Select(s => s.Name);
-            
+
+            listView.SelectedItem = "";
         }
 
         private async void onScheduleSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var selectedScheduleName = e.SelectedItem.ToString();
-            if (selectedScheduleName.Contains("Розклад занять") || selectedScheduleName.Contains("МК"))
+            if (selectedScheduleName != "")
             {
-                var selectIndex = e.SelectedItemIndex;
-                await scheduleService.LoadSchedule(scheduleInfos[selectIndex]);
-                await Navigation.PushAsync(new SchedulePage(selectedScheduleName));
-            }
-            else
-            {
-                await DisplayAlert("Увага!", "Відображення даного розкладу знаходиться в розробці!", "OK");
+                if (selectedScheduleName.Contains("Розклад занять") || selectedScheduleName.Contains("МК"))
+                {
+                    var selectIndex = e.SelectedItemIndex;
+                    await scheduleService.LoadSchedule(scheduleInfos[selectIndex]);
+                    await Navigation.PushAsync(new SchedulePage(selectedScheduleName));
+                }
+                else
+                {
+                    await DisplayAlert("Увага!", "Відображення даного розкладу знаходиться в розробці!", "OK");
+                }
             }
         }
     }
