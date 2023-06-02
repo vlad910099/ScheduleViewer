@@ -436,6 +436,7 @@ namespace Mobile
             {
                 ShowScheduleForGroup();
             }
+            CloseDayFrame();
         }
 
         public void onSelectedTeacherChange(object sender, EventArgs e)
@@ -444,6 +445,7 @@ namespace Mobile
             {
                 ShowScheduleForTeacher();
             }
+            CloseDayFrame();
         }
 
         private void onMondayCheckChange(object sender, CheckedChangedEventArgs e)
@@ -489,6 +491,11 @@ namespace Mobile
             {
                 ShowScheduleForTeacher();
             }
+            CloseDayFrame();
+        }
+
+        private void CloseDayFrame()
+        {
             mondayFrame.IsVisible = false;
             tuesdayFrame.IsVisible = false;
             wednesdayFrame.IsVisible = false;

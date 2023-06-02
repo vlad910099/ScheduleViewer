@@ -9,7 +9,9 @@
             <Label Text="Оберіть розклад" HorizontalTextAlignment="Center" TextColor="White" FontSize="32" />
         </Frame>
 
-        <ListView x:Name="listView"  ItemSelected="onScheduleSelected" HorizontalOptions="Center"></ListView>
+        <ListView x:Name="listView"  ItemSelected="onScheduleSelected" HorizontalOptions="Center">
+            
+        </ListView>
         <Image x:Name="Ilogo" />
     </StackLayout>
     

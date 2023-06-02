@@ -15,7 +15,7 @@
                     </StackLayout>
 
                     <StackLayout>
-                        <Picker x:Name="groupPicker" SelectedIndexChanged="onSelectedGroupChange" Title="Оберіть групу">
+                        <Picker x:Name="groupPicker" SelectedIndexChanged="onSelectedGroupChange" Title="Оберіть групу" >
                             <Picker.Items>
                             </Picker.Items>
                         </Picker>
