@@ -12,7 +12,7 @@
         <ListView x:Name="listView"  ItemSelected="onScheduleSelected" HorizontalOptions="Center">
             
         </ListView>
-        <Image x:Name="Ilogo" />
+        
     </StackLayout>
     
 </ContentPage>
