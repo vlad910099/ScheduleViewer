@@ -223,7 +223,7 @@ namespace Core.Services
                     return infos.ToArray();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Array.Empty<ScheduleInfo>();
             }
