@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -195,8 +196,11 @@ namespace Core.Services
                     AutomaticDecompression = System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.None
                 };
 
+                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
                 using (var client = new HttpClient(handler))
                 {
+
                     var response = await client.GetAsync(siteUri);
 
                     if (!response.IsSuccessStatusCode)
