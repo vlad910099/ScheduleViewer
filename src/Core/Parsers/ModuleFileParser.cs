@@ -40,8 +40,8 @@ namespace Core.Parsers
 
                         var columnsCount = sheet.GetRow(3).Count();
                         var rowCount = sheet.LastRowNum;
-
-                       
+                        if (columnsCount < 10)
+                            break;
 
                         for (var columnIndex = 0; columnIndex < columnsCount; columnIndex += 2)
                         {
@@ -85,7 +85,18 @@ namespace Core.Parsers
                                         var teacher = new Teacher(cells[index + 3].StringCellValue);
                                         var date = cells[index].DateCellValue;
                                         var timeStringValue = cells[index + 4].StringCellValue;
-                                        var timeParts = timeStringValue.Split('-');
+
+                                        string[] timeParts = new string[2];
+                                        if (timeStringValue.Contains("-"))
+                                            timeParts = timeStringValue.Split('-');
+                                        else
+                                        {
+                                            timeParts[0] += timeStringValue[0];
+                                            timeParts[0] += timeStringValue[1];
+                                            timeParts[1] += timeStringValue[2];
+                                            timeParts[1] += timeStringValue[3];
+                                        }
+
                                         var fullDate = new DateTime(date.Year, date.Month, date.Day, int.Parse(timeParts[0]), int.Parse(timeParts[1]), 0);
                                         var number = GetClassNumber(timeStringValue);
                                         var subType = cells[index + 1].StringCellValue == "Консультація" ? ClassSubType.Consultation : ClassSubType.Exam;
@@ -95,6 +106,7 @@ namespace Core.Parsers
                                     }
                                 }
                             }
+                            
                         }
                     }
                     var res = new ParseResult(classes.ToArray(), null);
