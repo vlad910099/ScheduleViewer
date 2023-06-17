@@ -3,6 +3,7 @@ using Domain;
 using Domain.Enums;
 using Domain.Models;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -473,25 +474,45 @@ namespace Mobile
             fridayFrame.IsVisible = fridayCheckbox.IsChecked;
         }
 
-        private void onScheduleTypeChange(object sender, CheckedChangedEventArgs e)
+        private async void onScheduleTypeChange(object sender, CheckedChangedEventArgs e)
         {
             if (teacherPicker.SelectedItem == null || groupPicker.SelectedItem == null)
             {
                 CleanSL(sls);
             }
 
-            groupPicker.IsVisible = groupRadioButton.IsChecked;
-            teacherPicker.IsVisible = !groupRadioButton.IsChecked;
+            //groupPicker.IsVisible = groupRadioButton.IsChecked;
+            //teacherPicker.IsVisible = !groupRadioButton.IsChecked;
+            groupEntry.IsVisible = groupRadioButton.IsChecked;
+            teacherEntry.IsVisible = !groupRadioButton.IsChecked;
 
+            //if (groupRadioButton.IsChecked)
+            //{
+            //    ShowScheduleForGroup();
+            //}
+            //else
+            //{
+            //    ShowScheduleForTeacher();
+            //}
             if (groupRadioButton.IsChecked)
             {
-                ShowScheduleForGroup();
+                var groupName = groupEntry.Text;
+                if (groupName != "Оберіть групу")
+                {
+                    await ViewScheduleGroup(groupName);
+                }
+                CloseDayFrame();
             }
             else
             {
-                ShowScheduleForTeacher();
+                var teacherName = teacherEntry.Text;
+                if (teacherName != "Оберіть викладача")
+                {
+                    await ViewScheduleTeacher(teacherName);
+                }
+                CloseDayFrame();
             }
-            CloseDayFrame();
+            
         }
 
         private void CloseDayFrame()
@@ -507,6 +528,32 @@ namespace Mobile
             wednesdayCheckbox.IsChecked = false;
             thursdayCheckbox.IsChecked = false;
             fridayCheckbox.IsChecked = false;
+        }
+        private async void OnEntryGroupFocused(object sender, FocusEventArgs e)
+        {
+            groupEntry.Unfocus();
+            var groups = await scheduleService.GetGroups(scheduleName);
+            string groupName = await DisplayActionSheet("Оберіть групу", "Скасувати", null, groups);
+
+            if (groupName != "Скасувати")
+            {
+                await ViewScheduleGroup(groupName);
+                groupEntry.Text = groupName;
+            }
+            CloseDayFrame();
+        }
+        private async void OnEntryTeacherFocused(object sender, FocusEventArgs e)
+        {
+            teacherEntry.Unfocus();
+            var teachers = await scheduleService.GetTeachers(scheduleName);
+            string teacherName = await DisplayActionSheet("Оберіть викладача", "Скасувати", null, teachers);
+
+            if (teacherName != "Скасувати")
+            {
+                await ViewScheduleTeacher(teacherName);
+                teacherEntry.Text = teacherName;
+            }
+            CloseDayFrame();
         }
     }
 }

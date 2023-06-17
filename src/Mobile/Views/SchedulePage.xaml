@@ -10,12 +10,12 @@
             <StackLayout>
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <RadioButton x:Name="groupRadioButton" Content ="Студент" IsChecked="True" CheckedChanged="onScheduleTypeChange" />
+                        <RadioButton x:Name="groupRadioButton" Content ="Студент" IsChecked="True"/>
                         <RadioButton x:Name="teacherRadioButton" Content ="Викладач" IsChecked="False" CheckedChanged="onScheduleTypeChange" />
                     </StackLayout>
 
                     <StackLayout>
-                        <Picker x:Name="groupPicker" SelectedIndexChanged="onSelectedGroupChange" Title="Оберіть групу" >
+                        <Picker x:Name="groupPicker" SelectedIndexChanged="onSelectedGroupChange" Title="Оберіть групу" IsVisible="False">
                             <Picker.Items>
                             </Picker.Items>
                         </Picker>
@@ -23,6 +23,8 @@
                             <Picker.Items>
                             </Picker.Items>
                         </Picker>
+                        <Entry x:Name="groupEntry" Text="Оберіть групу" Focused="OnEntryGroupFocused"/>
+                        <Entry x:Name="teacherEntry" Text="Оберіть викладача" Focused="OnEntryTeacherFocused" IsVisible="False"/>
                     </StackLayout>
                 </StackLayout>
 

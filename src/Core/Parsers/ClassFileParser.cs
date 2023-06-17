@@ -62,19 +62,24 @@ namespace Core.Parsers
                         {
                             string groupName = string.Empty, groupAlternativeName = string.Empty;
 
-                            if (cells[cellIndex].IsMergedCell)
+                            if (cells[cellIndex].StringCellValue != "")
                             {
-                                var stringValue = cells[cellIndex].StringCellValue;
-                                var groupNameParts = stringValue.Split('\n');
+                                if (cells[cellIndex].IsMergedCell)
+                                {
+                                    var stringValue = cells[cellIndex].StringCellValue;
+                                    var groupNameParts = stringValue.Split('\n');
 
-                                groupName = groupNameParts[0];
-                                groupAlternativeName = groupNameParts[1];
+                                    groupName = groupNameParts[0];
+                                    groupAlternativeName = groupNameParts[1];
+                                }
+                                else
+                                {
+                                    groupName = cells[cellIndex].StringCellValue;
+                                    groupAlternativeName = cells[cellIndex + 1].StringCellValue;
+                                }
                             }
-                            else
-                            {
-                                groupName = cells[cellIndex].StringCellValue;
-                                groupAlternativeName = cells[cellIndex + 1].StringCellValue;
-                            }
+                            else 
+                                continue;
 
                             var group = new Group(groupName, groupAlternativeName);
 
