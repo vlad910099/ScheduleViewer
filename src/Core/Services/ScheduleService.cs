@@ -75,7 +75,8 @@ namespace Core.Services
             }
 
             var teachers = await teacherRepository.Get(scheduleName);
-            var sortedResult = teachers.OrderBy(x => x.Name).Select(t => t.Name).ToArray();
+            var filtrTeachers = teachers.Where(e => e.Name != "-").ToArray();
+            var sortedResult = filtrTeachers.OrderBy(x => x.Name).Select(t => t.Name).ToArray();
 
             teacherNamesCache.TryAdd(scheduleName, sortedResult);
 

@@ -552,7 +552,8 @@ namespace Mobile
             {
                 await ViewScheduleTeacher(teacherName);
                 teacherEntry.Text = teacherName;
-            }
+            }           
+
             CloseDayFrame();
         }
     }
